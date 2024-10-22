@@ -10,38 +10,44 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <!-- Imagen del vinilo -->
+    <!-- Vinyl image -->
     <ImageView
         android:id="@+id/vinylImage"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="40dp"
-        android:scaleType="fitCenter"
+        android:layout_marginTop="-208dp"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/HU00_title"
         android:src="@drawable/vinyl" />
 
-    <!-- Título de la App -->
+    <!-- App title -->
     <TextView
         android:id="@+id/txtTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:paddingTop="16dp"
-        android:text="MISO"
+        android:text="@string/HU00_title"
         android:textColor="#FFFFFF"
-        android:textSize="48sp"
+        android:textSize="45sp"
+        android:translationY="-78dp"
+        android:textAllCaps="true"
         android:textStyle="bold" />
 
+    <!-- App subtitle -->
     <TextView
         android:id="@+id/txtSubtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="MUSIC"
+        android:text="@string/HU00_subtitle"
+        android:textAllCaps="true"
         android:textColor="#CCCCCC"
-        android:textSize="40sp" />
+        android:translationY="-78dp"
+        android:textSize="55sp" />
 
-    <!-- Campo de texto Usuario -->
+    <!-- User Input -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/userInput"
         android:layout_width="match_parent"
@@ -54,12 +60,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#999999"
-            android:hint="Usuario"
+            android:hint="@string/HU00_user_input"
             android:textColor="#FFFFFF"
             android:textColorHint="#999999" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Campo de texto Contraseña -->
+    <!-- Password Input -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordInput"
         android:layout_width="match_parent"
@@ -73,34 +79,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#999999"
-            android:hint="Contraseña"
+            android:hint="@string/HU00_password_input"
             android:inputType="textPassword"
             android:textColor="#FFFFFF" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Botón de Login -->
+    <!-- Login Button -->
     <Button
         android:id="@+id/loginButton"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
         android:layout_marginTop="24dp"
         android:background="#000000"
-        android:text="LOGIN"
+        android:text="@string/HU00_login_button"
+        android:textAllCaps="true"
         android:textColor="#FF4444"
         android:textStyle="bold" />
 
-    <!-- Separador -->
+    <!-- Divider -->
     <TextView
         android:id="@+id/separator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
-        android:text="ó"
+        android:text="@string/HU00_divider_text"
+        android:textAllCaps="true"
         android:textColor="#FFFFFF" />
 
-    <!-- Botón de Ingresar como visitante -->
+    <!-- Guest login button -->
     <TextView
         android:id="@+id/guestButton"
         android:layout_width="wrap_content"
@@ -109,7 +116,8 @@
         android:layout_marginTop="16dp"
         android:clickable="true"
         android:focusable="true"
-        android:text="INGRESAR COMO VISITANTE"
+        android:text="@string/HU00_login_alt_button"
+        android:textAllCaps="true"
         android:textColor="#FF4444"
         android:textStyle="bold" />
 </LinearLayout>
