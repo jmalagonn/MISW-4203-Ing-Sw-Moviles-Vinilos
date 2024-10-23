@@ -1,7 +1,8 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
+    id("com.android.application") version "8.6.0"
+    id("org.jetbrains.kotlin.android") version "1.9.0"
 }
+
 
 android {
     namespace = "co.edu.uniandes.misw4203.proyectovinilos"

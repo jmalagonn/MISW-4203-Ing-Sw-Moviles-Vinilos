@@ -5,7 +5,6 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#333333"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context=".MainActivity">
@@ -16,9 +15,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="-208dp"
-        android:scaleType="centerCrop"
         android:adjustViewBounds="true"
         android:contentDescription="@string/HU00_title"
+        android:scaleType="centerCrop"
         android:src="@drawable/vinyl" />
 
     <!-- App title -->
@@ -29,11 +28,10 @@
         android:layout_gravity="center_horizontal"
         android:paddingTop="16dp"
         android:text="@string/HU00_title"
-        android:textColor="#FFFFFF"
-        android:textSize="45sp"
-        android:translationY="-78dp"
         android:textAllCaps="true"
-        android:textStyle="bold" />
+        android:textSize="45sp"
+        android:textStyle="bold"
+        android:translationY="-78dp" />
 
     <!-- App subtitle -->
     <TextView
@@ -43,9 +41,8 @@
         android:layout_gravity="center_horizontal"
         android:text="@string/HU00_subtitle"
         android:textAllCaps="true"
-        android:textColor="#CCCCCC"
-        android:translationY="-78dp"
-        android:textSize="55sp" />
+        android:textSize="55sp"
+        android:translationY="-78dp" />
 
     <!-- User Input -->
     <com.google.android.material.textfield.TextInputLayout
@@ -54,15 +51,14 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="32dp"
         android:layout_marginTop="24dp"
-        android:backgroundTint="#999999">
+        style="?attr/textInputOutlinedStyle">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/userInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="#999999"
             android:hint="@string/HU00_user_input"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#999999" />
+            android:textColor="@color/white"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Password Input -->
@@ -72,29 +68,26 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="32dp"
         android:layout_marginTop="16dp"
-        android:backgroundTint="#999999"
-        app:endIconMode="password_toggle">
+        app:endIconMode="password_toggle"
+        style="?attr/textInputOutlinedStyle">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/passwordInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="#999999"
             android:hint="@string/HU00_password_input"
             android:inputType="textPassword"
-            android:textColor="#FFFFFF" />
+            android:textColor="@color/white"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Login Button -->
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:background="#000000"
         android:text="@string/HU00_login_button"
-        android:textAllCaps="true"
-        android:textColor="#FF4444"
-        android:textStyle="bold" />
+        style="?attr/buttonStyle"/>
 
     <!-- Divider -->
     <TextView
@@ -105,7 +98,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/HU00_divider_text"
         android:textAllCaps="true"
-        android:textColor="#FFFFFF" />
+        android:textColor="@color/orange" />
 
     <!-- Guest login button -->
     <TextView
@@ -117,7 +110,7 @@
         android:clickable="true"
         android:focusable="true"
         android:text="@string/HU00_login_alt_button"
+        android:textColor="@color/orange"
         android:textAllCaps="true"
-        android:textColor="#FF4444"
         android:textStyle="bold" />
 </LinearLayout>
