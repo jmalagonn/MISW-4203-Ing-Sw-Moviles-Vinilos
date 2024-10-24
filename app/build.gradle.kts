@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application") version "8.6.0"
     id("org.jetbrains.kotlin.android") version "1.9.0"
+    id("kotlin-kapt")
 }
 
 
@@ -46,6 +47,8 @@ android {
 
 dependencies {
 
+    implementation(libs.glide)
+    kapt(libs.glide.compiler)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

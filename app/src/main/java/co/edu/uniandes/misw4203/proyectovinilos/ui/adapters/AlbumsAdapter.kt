@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import co.edu.uniandes.misw4203.proyectovinilos.R
 import co.edu.uniandes.misw4203.proyectovinilos.databinding.AlbumItemBinding
 import co.edu.uniandes.misw4203.proyectovinilos.models.Album
+import com.bumptech.glide.Glide
 
 class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumViewHolder>(){
 
@@ -30,6 +31,14 @@ class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumViewHolder>(){
     override fun onBindViewHolder(holder: AlbumViewHolder, position: Int) {
         holder.viewDataBinding.also {
             it.album = albums[position]
+            // Load covers using Glide Lib
+            Glide.with(holder.viewDataBinding.root.context)
+                .load(albums[position].cover)
+                .placeholder(android.R.drawable.ic_menu_gallery)
+                .error(android.R.drawable.ic_menu_gallery)
+                .into(holder.viewDataBinding.albumCover)
+
+            holder.viewDataBinding.executePendingBindings()
         }
     }
 
