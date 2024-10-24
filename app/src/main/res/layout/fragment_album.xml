@@ -14,7 +14,6 @@
         android:layout_height="wrap_content">
 
         <!-- Vinyl image -->
-
         <ImageView
             android:id="@+id/vinylImage"
             android:layout_width="371dp"
@@ -28,6 +27,7 @@
             android:scaleType="centerCrop"
             android:src="@drawable/vinyl" />
 
+        <!-- Title -->
         <TextView
             android:id="@+id/albumTitle"
             android:layout_width="152dp"
@@ -38,11 +38,12 @@
             android:fontFamily="@font/roboto_condensed_light"
             android:gravity="start"
             android:paddingStart="10dp"
+            android:paddingEnd="1dp"
             android:text="@string/title_list_albums"
             android:textAllCaps="true"
             android:textSize="34sp" />
 
-
+        <!-- Albums Counter Label -->
         <TextView
             android:id="@+id/totalAlbumsTextView"
             android:layout_width="155dp"
@@ -58,6 +59,7 @@
             android:textAllCaps="true"
             android:textSize="14sp" />
 
+        <!-- Search field -->
         <EditText
             android:id="@+id/searchAlbumEditText"
             android:layout_width="152dp"
@@ -82,7 +84,7 @@
         <Button
             android:id="@+id/addAlbumButton"
             android:layout_width="152dp"
-            android:layout_height="22dp"
+            android:layout_height="26dp"
             android:layout_below="@id/searchAlbumEditText"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
@@ -90,9 +92,10 @@
             android:fontFamily="@font/roboto_condensed_medium"
             android:padding="0dp"
             android:text="@string/add_album"
-            android:textColor="@color/orange"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            style="?attr/buttonStyle"/>
 
+        <!-- Load icon animation -->
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyle"
@@ -100,6 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true" />
 
+        <!-- List of albums -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/albumsRv"
             android:layout_width="match_parent"
