@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">MISW4203 - Proyecto Vinilos</string>
+    <string name="HU00_title">Miso</string>
+    <string name="HU00_subtitle">Music</string>
+    <string name="HU00_user_input">Usuario</string>
+    <string name="HU00_password_input">Contraseña</string>
+    <string name="HU00_login_button">Login</string>
+    <string name="HU00_login_alt_button">Ingresar como visitante</string>
+    <string name="HU00_divider_text">ó</string>
 </resources>

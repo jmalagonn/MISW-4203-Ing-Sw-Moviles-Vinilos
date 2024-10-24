@@ -1,6 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fragment_container"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <!-- Vinyl image -->
+    <ImageView
+        android:id="@+id/vinylImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-208dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/HU00_title"
+        android:scaleType="centerCrop"
+        android:src="@drawable/vinyl" />
+
+    <!-- App title -->
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="16dp"
+        android:text="@string/HU00_title"
+        android:textAllCaps="true"
+        android:textSize="45sp"
+        android:textStyle="bold"
+        android:translationY="-78dp" />
+
+    <!-- App subtitle -->
+    <TextView
+        android:id="@+id/txtSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/HU00_subtitle"
+        android:textAllCaps="true"
+        android:textSize="55sp"
+        android:translationY="-78dp" />
+
+    <!-- User Input -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/userInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="24dp"
+        style="?attr/textInputOutlinedStyle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/userInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/HU00_user_input"
+            android:textColor="@color/white"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Password Input -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/passwordInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="16dp"
+        app:endIconMode="password_toggle"
+        style="?attr/textInputOutlinedStyle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/passwordInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/HU00_password_input"
+            android:inputType="textPassword"
+            android:textColor="@color/white"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Login Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/loginButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/HU00_login_button"
+        style="?attr/buttonStyle"/>
+
+    <!-- Divider -->
+    <TextView
+        android:id="@+id/separator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:text="@string/HU00_divider_text"
+        android:textAllCaps="true"
+        android:textColor="@color/orange" />
+
+    <!-- Guest login button -->
+    <TextView
+        android:id="@+id/guestButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="@string/HU00_login_alt_button"
+        android:textColor="@color/orange"
+        android:textAllCaps="true"
+        android:textStyle="bold" />
+</LinearLayout>

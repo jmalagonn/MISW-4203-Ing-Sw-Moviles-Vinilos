@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android") version "1.9.0"
 }
 
+
 android {
     namespace = "co.edu.uniandes.misw4203.proyectovinilos"
     compileSdk = 34
