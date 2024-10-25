@@ -7,4 +7,8 @@
     <string name="HU00_login_button">Login</string>
     <string name="HU00_login_alt_button">Ingresar como visitante</string>
     <string name="HU00_divider_text">ó</string>
+    <string name="title_list_albums">Álbumes</string>
+    <string name="total_albums">Total Álbumes:</string>
+    <string name="search_album_hint">BUSCAR</string>
+    <string name="add_album">+ AGREGAR ÁLBUM</string>
 </resources>
