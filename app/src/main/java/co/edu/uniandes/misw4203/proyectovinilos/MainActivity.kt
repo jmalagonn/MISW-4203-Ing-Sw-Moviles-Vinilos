@@ -35,36 +35,41 @@ class MainActivity : AppCompatActivity() {
         loginAltButton = findViewById<TextView>(R.id.guestButton)
 
         loginButton.setOnClickListener {
-            goToAlbumsList(true)
+            //goToAlbumsList(true)
+            navigateToBottomBar(isAdmin = true)
+
         }
 
         loginAltButton.setOnClickListener {
-            goToAlbumsList(false)
+            //goToAlbumsList(false)
+            navigateToBottomBar(isAdmin = false)
         }
 
     }
 
-    private fun goToAlbumsList(isLogged: Boolean) {
+    private fun navigateToBottomBar(isAdmin: Boolean) {
         val username = usernameEditText.text.toString()
         val password = passwordEditText.text.toString()
-        val intent: Intent
 
-
-        if (isLogged) {
+        if (isAdmin) {
             if (username == "admin" && password == "password") {
-                intent = Intent(this, AlbumsListActivity::class.java)
-                intent.putExtra("isAdmin", isLogged)
+                val intent = Intent(this, BottomBarActivity::class.java).apply {
+                    putExtra("isAdmin", true)
+                }
                 startActivity(intent)
-            }
-            else {
+                finish()
+            } else {
                 Toast.makeText(applicationContext, "Datos incorrectos", Toast.LENGTH_SHORT).show()
             }
-        }
-
-        else {
-            intent = Intent( this, AlbumsListActivity::class.java)
-            intent.putExtra("isAdmin", isLogged)
+        } else {
+            val intent = Intent(this, BottomBarActivity::class.java).apply {
+                putExtra("isAdmin", false)
+            }
             startActivity(intent)
+            finish()  // Cierra la actividad de login
         }
     }
+
+
+
 }

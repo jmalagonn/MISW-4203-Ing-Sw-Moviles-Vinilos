@@ -1,4 +1,4 @@
-package co.edu.uniandes.misw4203.proyectovinilos.ui
+package co.edu.uniandes.misw4203.proyectovinilos.ui.album
 
 import android.os.Bundle
 import android.text.Editable
@@ -25,6 +25,12 @@ class AlbumFragment : Fragment() {
     private lateinit var viewModel: AlbumViewModel
     private var viewModelAdapter: AlbumsAdapter? = null
     private var albumList: List<Album> = emptyList()
+    private var isAdmin: Boolean = false
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        isAdmin = arguments?.getBoolean("isAdmin", false) ?: false
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

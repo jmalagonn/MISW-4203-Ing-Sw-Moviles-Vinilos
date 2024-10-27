@@ -11,4 +11,8 @@
     <string name="total_albums">Total Álbumes:</string>
     <string name="search_album_hint">BUSCAR</string>
     <string name="add_album">+ AGREGAR ÁLBUM</string>
+    <string name="title_activity_bottom_bar">BottomBarActivity</string>
+    <string name="title_album">Albumes</string>
+    <string name="title_artist">Artistas</string>
+    <string name="title_collector">Coleccionistas</string>
 </resources>

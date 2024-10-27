@@ -7,7 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import co.edu.uniandes.misw4203.proyectovinilos.ui.AlbumFragment
+import co.edu.uniandes.misw4203.proyectovinilos.ui.album.AlbumFragment
 
 class AlbumsListActivity : AppCompatActivity() {
 
