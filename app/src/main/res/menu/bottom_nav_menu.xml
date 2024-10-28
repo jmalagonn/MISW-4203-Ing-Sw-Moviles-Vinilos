@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_album"
+        android:icon="@drawable/icon_album"
+        android:title="@string/title_album" />
+
+    <item
+        android:id="@+id/navigation_artist"
+        android:icon="@drawable/icon_artist"
+        android:title="@string/title_artist" />
+
+    <item
+        android:id="@+id/navigation_collector"
+        android:icon="@drawable/icon_collector"
+        android:title="@string/title_collector" />
+
+</menu>

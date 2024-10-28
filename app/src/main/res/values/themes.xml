@@ -29,7 +29,14 @@
         <item name="android:textColor">@color/white</item> <!-- Color del texto -->
     </style>
 
-
+    <style name="BottomNavigation">
+        <item name="android:background">@drawable/rect_background</item>
+        <item name="itemBackground">@drawable/rect_background</item>
+        <item name="itemIconTint">@color/orange</item>
+        <item name="itemTextColor">@color/gray</item>
+        <item name="paddingStart">@dimen/material_emphasis_disabled</item>
+        <item name="paddingEnd">@dimen/activity_horizontal_margin</item>
+    </style>
 
     <style name="Theme.MISW4203ProyectoVinilos" parent="Base.Theme.MISW4203ProyectoVinilos" />
 
