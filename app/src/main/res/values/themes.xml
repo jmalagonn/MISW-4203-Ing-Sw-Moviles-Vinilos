@@ -2,8 +2,42 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.MISW4203ProyectoVinilos" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:windowBackground">@color/background_color</item>
+        <item name="android:fontFamily">Roboto</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:buttonStyle">@style/ButtonStyle</item>
+        <item name="colorButtonNormal">@color/black</item>
+        <item name="textInputOutlinedStyle">@style/TextInputStyle</item>
+    </style>
+
+    <style name="ButtonStyle" parent="@style/Widget.MaterialComponents.Button">
+        <item name="android:textColor">@color/orange</item>
+        <item name="backgroundTint">@color/black</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:padding">12dp</item>
+    </style>
+
+    <style name="TextInputStyle" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="backgroundTint">@color/gray</item>
+        <item name="boxBackgroundColor">@color/gray</item>
+        <item name="boxStrokeColor">@color/black</item>
+        <item name="hintTextColor">@color/white</item> <!-- Color del texto del hint -->
+    </style>
+
+    <style name="TextInputEditTextStyle" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
+        <item name="android:backgroundTint">@color/gray</item> <!-- Tinte del fondo -->
+        <item name="android:textColor">@color/white</item> <!-- Color del texto -->
+    </style>
+
+    <style name="BottomNavigation">
+        <item name="android:background">@drawable/rect_background</item>
+        <item name="itemBackground">@drawable/rect_background</item>
+        <item name="itemIconTint">@color/orange</item>
+        <item name="itemTextColor">@color/gray</item>
+        <item name="paddingStart">@dimen/material_emphasis_disabled</item>
+        <item name="paddingEnd">@dimen/activity_horizontal_margin</item>
     </style>
 
     <style name="Theme.MISW4203ProyectoVinilos" parent="Base.Theme.MISW4203ProyectoVinilos" />
+
 </resources>

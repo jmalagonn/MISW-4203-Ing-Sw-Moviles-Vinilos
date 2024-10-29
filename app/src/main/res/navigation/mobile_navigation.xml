@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_album">
+
+    <fragment
+        android:id="@+id/navigation_album"
+        android:name="co.edu.uniandes.misw4203.proyectovinilos.ui.album.AlbumFragment"
+        android:label="@string/title_album"
+        tools:layout="@layout/fragment_album" />
+
+    <fragment
+        android:id="@+id/navigation_artist"
+        android:name="co.edu.uniandes.misw4203.proyectovinilos.ui.artist.ArtistFragment"
+        android:label="@string/title_artist"
+        tools:layout="@layout/fragment_artist" />
+
+    <fragment
+        android:id="@+id/navigation_collector"
+        android:name="co.edu.uniandes.misw4203.proyectovinilos.ui.collector.CollectorFragment"
+        android:label="@string/title_collector"
+        tools:layout="@layout/fragment_collector" />
+</navigation>
