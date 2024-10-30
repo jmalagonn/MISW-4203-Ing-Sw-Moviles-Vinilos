@@ -2,15 +2,14 @@ package co.edu.uniandes.misw4203.proyectovinilos
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.textfield.TextInputEditText
+import android.app.Dialog
 
 class MainActivity : AppCompatActivity() {
 
@@ -59,7 +58,8 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             } else {
-                Toast.makeText(applicationContext, "Datos incorrectos", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(applicationContext, "Datos incorrectos", Toast.LENGTH_LONG).show()
+                showNotificationDialog("Datos incorrectos")
             }
         } else {
             val intent = Intent(this, BottomBarActivity::class.java).apply {
@@ -68,6 +68,23 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
             finish()  // Cierra la actividad de login
         }
+    }
+
+    private fun showNotificationDialog(message: String) {
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.notification_dialog)
+        dialog.setCancelable(true)
+
+        val notificationMessage = dialog.findViewById<TextView>(R.id.notificationMessage)
+        val closeButton = dialog.findViewById<Button>(R.id.closeNotificationButton)
+
+        notificationMessage.text = message
+
+        closeButton.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 
 
