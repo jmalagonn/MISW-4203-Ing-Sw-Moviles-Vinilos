@@ -9,6 +9,7 @@ import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONArray
+import org.json.JSONObject
 
 class NetworkServiceAdapter constructor(context: Context) {
     companion object{
@@ -27,6 +28,9 @@ class NetworkServiceAdapter constructor(context: Context) {
         Volley.newRequestQueue(context.applicationContext)
     }
 
+    /**
+     * Get the whole list of Albums
+     */
     fun getAlbums(onComplete:(resp:List<Album>)->Unit, onError: (error: VolleyError)->Unit){
         requestQueue.add(getRequest("albums",
             { response ->
@@ -34,13 +38,46 @@ class NetworkServiceAdapter constructor(context: Context) {
                 val list = mutableListOf<Album>()
                 for (i in 0 until resp.length()) {
                     val item = resp.getJSONObject(i)
-                    list.add(i, Album(albumId = item.getInt("id"),name = item.getString("name"), cover = item.getString("cover"), recordLabel = item.getString("recordLabel"), releaseDate = item.getString("releaseDate"), genre = item.getString("genre"), description = item.getString("description")))
+                    list.add(i, Album(
+                        albumId = item.getInt("id"),
+                        name = item.getString("name"),
+                        cover = item.getString("cover"),
+                        recordLabel = item.getString("recordLabel"),
+                        releaseDate = item.getString("releaseDate"),
+                        genre = item.getString("genre"),
+                        description = item.getString("description"))
+                    )
                 }
                 onComplete(list)
             },
             {
                 onError(it)
             }))
+    }
+
+    /**
+     * Get an Album by id
+     */
+    fun getAlbumDetail(albumId: Int, onComplete: (resp: Album) -> Unit, onError: (error: VolleyError) -> Unit) {
+        requestQueue.add(getRequest("albums/$albumId",
+            {
+            response ->
+                val item = JSONObject(response)
+                val album = Album(
+                    albumId = item.getInt("id"),
+                    name = item.getString("name"),
+                    cover = item.getString("cover"),
+                    recordLabel = item.getString("recordLabel"),
+                    releaseDate = item.getString("releaseDate"),
+                    genre = item.getString("genre"),
+                    description = item.getString("description")
+                )
+                onComplete(album)
+            },
+            {
+                onError(it)
+            }
+        ))
     }
 
     private fun getRequest(path:String, responseListener: Response.Listener<String>, errorListener: Response.ErrorListener): StringRequest {
