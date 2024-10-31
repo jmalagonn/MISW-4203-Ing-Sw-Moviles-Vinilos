@@ -4,14 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import co.edu.uniandes.misw4203.proyectovinilos.R
 import co.edu.uniandes.misw4203.proyectovinilos.databinding.AlbumItemBinding
 import co.edu.uniandes.misw4203.proyectovinilos.models.Album
 import com.bumptech.glide.Glide
 
-class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumViewHolder>(){
+class AlbumsAdapter(private val onAlbumClick: (Album) -> Unit) : RecyclerView.Adapter<AlbumsAdapter.AlbumViewHolder>() {
 
     var albums :List<Album> = emptyList()
         set(value) {
@@ -39,12 +38,14 @@ class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumViewHolder>(){
                 .into(holder.viewDataBinding.albumCover)
 
             holder.viewDataBinding.executePendingBindings()
+            holder.itemView.setOnClickListener {
+                onAlbumClick(albums[position])
+            }
         }
+
     }
 
-    override fun getItemCount(): Int {
-        return albums.size
-    }
+    override fun getItemCount(): Int = albums.size
 
 
     class AlbumViewHolder(val viewDataBinding: AlbumItemBinding) :
@@ -54,6 +55,4 @@ class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumViewHolder>(){
             val LAYOUT = R.layout.album_item
         }
     }
-
-
 }

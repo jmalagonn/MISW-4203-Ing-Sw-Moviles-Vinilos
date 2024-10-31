@@ -7,11 +7,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import co.edu.uniandes.misw4203.proyectovinilos.R
 import co.edu.uniandes.misw4203.proyectovinilos.databinding.FragmentAlbumBinding
@@ -37,17 +37,14 @@ class AlbumFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentAlbumBinding.inflate(inflater, container, false)
-        val view = binding.root
-        viewModelAdapter = AlbumsAdapter()
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Hide option to add button if is not admin
-        val addAlbumButton = view.findViewById<Button>(R.id.addAlbumButton)
-        val isAdmin = arguments?.getBoolean("isAdmin", false) ?: false
+        // Hide option to add button if not admin
+        val addAlbumButton = binding.addAlbumButton
         if (isAdmin) {
             addAlbumButton.visibility = View.VISIBLE
         } else {
@@ -57,6 +54,8 @@ class AlbumFragment : Fragment() {
         binding.progressBar.visibility = View.VISIBLE
         val gridLayoutManager = GridLayoutManager(context, 3)
         binding.albumsRv.layoutManager = gridLayoutManager
+
+        viewModelAdapter = AlbumsAdapter { album -> showAlbumDetail(album) }
         binding.albumsRv.adapter = viewModelAdapter
 
         // Search field
@@ -78,7 +77,7 @@ class AlbumFragment : Fragment() {
         viewModel.albums.observe(viewLifecycleOwner, Observer<List<Album>> { albums ->
             Log.d("AlbumFragment", "Received albums: ${albums.size}")
             albumList = albums
-            viewModelAdapter!!.albums = albums
+            viewModelAdapter?.albums = albums
             binding.progressBar.visibility = View.GONE
 
             // Show Counter albums
@@ -109,7 +108,16 @@ class AlbumFragment : Fragment() {
             album.name.contains(query, ignoreCase = true)
         }
 
-        viewModelAdapter!!.albums = filteredList
+        viewModelAdapter?.albums = filteredList
         binding.totalAlbumsTextView.text = "Total de álbumes: ${filteredList.size}"
+    }
+
+    private fun showAlbumDetail(album: Album) {
+        val bundle = Bundle().apply {
+            putInt("album_id", album.albumId)
+            putString("album_title", album.name)
+            putString("album_cover", album.cover)
+        }
+        findNavController().navigate(R.id.albumDetailFragment, bundle)
     }
 }
