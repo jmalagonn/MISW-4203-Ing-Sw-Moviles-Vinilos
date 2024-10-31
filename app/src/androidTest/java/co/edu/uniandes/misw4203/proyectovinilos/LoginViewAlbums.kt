@@ -82,7 +82,7 @@ class LoginViewAlbums {
         )
         materialButton.perform(click())
 
-        Thread.sleep(4000)
+        Thread.sleep(5000)
 
         val recyclerView = onView(
             allOf(
