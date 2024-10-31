@@ -15,4 +15,6 @@
     <string name="title_album">Albumes</string>
     <string name="title_artist">Artistas</string>
     <string name="title_collector">Coleccionistas</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
