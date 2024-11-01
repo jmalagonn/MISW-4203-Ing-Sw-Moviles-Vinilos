@@ -114,9 +114,8 @@ class AlbumFragment : Fragment() {
 
     private fun showAlbumDetail(album: Album) {
         val bundle = Bundle().apply {
-            putInt("album_id", album.albumId)
-            putString("album_title", album.name)
-            putString("album_cover", album.cover)
+            putSerializable("album", album)
+            putBoolean("isAdmin",isAdmin)
         }
         findNavController().navigate(R.id.albumDetailFragment, bundle)
     }
