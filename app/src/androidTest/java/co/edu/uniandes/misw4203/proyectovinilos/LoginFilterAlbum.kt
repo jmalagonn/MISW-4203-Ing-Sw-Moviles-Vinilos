@@ -97,12 +97,13 @@ class LoginFilterAlbum {
                         withClassName(`is`("android.widget.ScrollView")),
                         0
                     ),
-                    3
+                    2
                 )
             )
         )
+        Thread.sleep(2000)
         appCompatEditText.perform(scrollTo(), replaceText("poeta"), closeSoftKeyboard())
-
+        Thread.sleep(2000)
         Handler(Looper.getMainLooper()).postDelayed({
             val textView = onView(
                 allOf(
