@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.view.View
 
 class BottomBarActivity : AppCompatActivity() {
 
@@ -23,5 +24,15 @@ class BottomBarActivity : AppCompatActivity() {
             putBoolean("isAdmin", isAdmin)
         }
         navController.navigate(R.id.navigation_album, bundle)
+
+        // Ocultar BottomNavigationView en el AlbumDetailFragment
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id == R.id.albumDetailFragment) {
+                navView.visibility = View.GONE
+            } else {
+                navView.visibility = View.VISIBLE
+            }
+        }
+
     }
 }
