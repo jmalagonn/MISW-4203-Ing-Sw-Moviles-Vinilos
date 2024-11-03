@@ -15,4 +15,9 @@
     <string name="title_album">Albumes</string>
     <string name="title_artist">Artistas</string>
     <string name="title_collector">Coleccionistas</string>
+    <string name="add_track">+ AGREGAR TRACK</string>
+    <string name="duration">Duration</string>
+    <string name="track_title_header">TRACKS</string>
+    <string name="id_tracks_table">#</string>
+    <string name="go_back_button">VOLVER</string>
 </resources>

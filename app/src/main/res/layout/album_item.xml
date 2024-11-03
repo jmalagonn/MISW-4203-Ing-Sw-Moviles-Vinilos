@@ -53,6 +53,12 @@
                     android:textSize="14sp"
                     android:textAllCaps="true"
                     android:textStyle="bold|italic"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:scrollHorizontally="true"
+                    android:maxLines="2"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     style="@style/TextInputStyle"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
