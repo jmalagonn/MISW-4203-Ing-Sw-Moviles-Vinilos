@@ -36,3 +36,13 @@ Sincroniza el proyecto con Gradle.
 Conecta un dispositivo o inicia un emulador de Android.
 
 Haz clic en Run para compilar y ejecutar la app.
+
+## Login
+
+Se establecieron unas credenciales para simular el Login de un usuario **Admin**
+
+**Usuario:** admin
+
+**Contraseña:** password
+
+
