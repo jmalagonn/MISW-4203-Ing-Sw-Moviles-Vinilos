@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var usernameEditText: TextInputEditText
     private lateinit var passwordEditText: TextInputEditText;
     private lateinit var loginButton: Button;
-    private lateinit var loginAltButton: TextView
+    private lateinit var loginAltButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         usernameEditText = findViewById<TextInputEditText>(R.id.userInputEditText)
         passwordEditText = findViewById<TextInputEditText>(R.id.passwordInputEditText)
         loginButton = findViewById<Button>(R.id.loginButton)
-        loginAltButton = findViewById<TextView>(R.id.guestButton)
+        loginAltButton = findViewById<Button>(R.id.guestButton)
 
         loginButton.setOnClickListener {
             //goToAlbumsList(true)
