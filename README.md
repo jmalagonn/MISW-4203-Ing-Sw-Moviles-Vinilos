@@ -1,6 +1,6 @@
 # MISW4203 - Proyecto Vinilos
 
-Repositorio del proyecto Vinilos de la materia MISW-4203 de Ingeniería de Software Móvil.
+Repositorio del proyecto Vinilos de la materia MISW-4203 de Ingeniería de Software para móviles.
 
 ## Integrantes
 
@@ -15,7 +15,8 @@ Repositorio del proyecto Vinilos de la materia MISW-4203 de Ingeniería de Softw
 - **Kotlin** 1.9.0 o superior
 - **Min Android SDK** 21
 - **Gradle** 8.9 o superior
-- Emulador Android o Dispositivo móvil Android
+- **Gradle Plugin** 8.6.0
+- Emulador o dispositivo Android con **API 21 (Android 5.0)** o superior.
 
 ## Instalación
 ### Paso 1: Clona el repositorio

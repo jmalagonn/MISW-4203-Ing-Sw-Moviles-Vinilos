@@ -101,16 +101,18 @@
         android:textColor="@color/orange" />
 
     <!-- Guest login button -->
-    <TextView
+    <Button
         android:id="@+id/guestButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
-        android:clickable="true"
-        android:focusable="true"
+        android:background="?attr/selectableItemBackground"
         android:text="@string/HU00_login_alt_button"
         android:textColor="@color/orange"
         android:textAllCaps="true"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:padding="0dp"
+        android:minHeight="0dp"
+        android:minWidth="0dp" />
 </LinearLayout>

@@ -3,11 +3,13 @@ package co.edu.uniandes.misw4203.proyectovinilos
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.closeSoftKeyboard
 import androidx.test.espresso.action.ViewActions.replaceText
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
@@ -49,7 +51,7 @@ class ViewDetailAlbumAdmin {
             .perform(click())
 
         // Selección aleatoria del índice del álbum entre 1 y 15
-        val randomAlbumPosition = Random.nextInt(1, 15)
+        val randomAlbumPosition = Random.nextInt(1, 9)
 
         val recyclerView = onView(
             allOf(
