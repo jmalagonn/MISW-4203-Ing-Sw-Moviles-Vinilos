@@ -12,6 +12,9 @@ import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONArray
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 class NetworkServiceAdapter constructor(context: Context) {
     companion object{
@@ -30,11 +33,13 @@ class NetworkServiceAdapter constructor(context: Context) {
         Volley.newRequestQueue(context.applicationContext)
     }
 
-    fun getAlbums(onComplete:(resp:List<Album>)->Unit, onError: (error: VolleyError)->Unit){
+    //Setting coroutine
+    suspend fun getAlbums()= suspendCoroutine<List<Album>>{ cont->
+        val list = mutableListOf<Album>()
         requestQueue.add(getRequest("albums",
             { response ->
                 val resp = JSONArray(response)
-                val list = mutableListOf<Album>()
+
                 for (i in 0 until resp.length()) {
                     val item = resp.getJSONObject(i)
                     val tracks = if (item.has("tracks")) item.getJSONArray("tracks").toTrackList() else emptyList()
@@ -54,10 +59,10 @@ class NetworkServiceAdapter constructor(context: Context) {
                             performers = performers
                         ))
                 }
-                onComplete(list)
-            },
-            {
-                onError(it)
+                cont.resume(list)
+
+            },Response.ErrorListener {
+                cont.resumeWithException(it)
             }))
     }
 
