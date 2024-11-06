@@ -9,6 +9,8 @@ import co.edu.uniandes.misw4203.proyectovinilos.R
 import co.edu.uniandes.misw4203.proyectovinilos.databinding.AlbumItemBinding
 import co.edu.uniandes.misw4203.proyectovinilos.models.Album
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 
 class AlbumsAdapter(private val onAlbumClick: (Album) -> Unit) : RecyclerView.Adapter<AlbumsAdapter.AlbumViewHolder>() {
 
@@ -35,6 +37,9 @@ class AlbumsAdapter(private val onAlbumClick: (Album) -> Unit) : RecyclerView.Ad
                 .load(albums[position].cover)
                 .placeholder(android.R.drawable.ic_menu_gallery)
                 .error(android.R.drawable.ic_menu_gallery)
+                //adding cache for images
+                .apply(RequestOptions()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL))
                 .into(holder.viewDataBinding.albumCover)
 
             holder.viewDataBinding.executePendingBindings()
