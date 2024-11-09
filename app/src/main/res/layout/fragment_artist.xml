@@ -95,7 +95,7 @@
                 android:id="@+id/artistRv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@id/progressBar"
+                android:layout_below="@id/searchArtistEditText"
                 tools:listitem="@layout/artist_item" >
             </androidx.recyclerview.widget.RecyclerView>
         </RelativeLayout>
