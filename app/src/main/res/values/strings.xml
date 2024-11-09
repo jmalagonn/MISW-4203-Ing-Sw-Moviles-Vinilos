@@ -20,4 +20,5 @@
     <string name="track_title_header">TRACKS</string>
     <string name="id_tracks_table">#</string>
     <string name="go_back_button">VOLVER</string>
+    <string name="total_artists">Total Artistas:</string>
 </resources>

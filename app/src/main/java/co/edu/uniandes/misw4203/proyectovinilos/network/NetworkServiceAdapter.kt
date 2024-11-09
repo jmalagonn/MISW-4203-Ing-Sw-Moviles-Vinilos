@@ -2,6 +2,7 @@ package co.edu.uniandes.misw4203.proyectovinilos.network
 
 import android.content.Context
 import co.edu.uniandes.misw4203.proyectovinilos.models.Album
+import co.edu.uniandes.misw4203.proyectovinilos.models.Artist
 import co.edu.uniandes.misw4203.proyectovinilos.models.Comment
 import co.edu.uniandes.misw4203.proyectovinilos.models.Performer
 import co.edu.uniandes.misw4203.proyectovinilos.models.Track
@@ -64,6 +65,32 @@ class NetworkServiceAdapter constructor(context: Context) {
             },Response.ErrorListener {
                 cont.resumeWithException(it)
             }))
+    }
+
+    fun getArtists(onComplete:(resp:List<Artist>)->Unit, onError: (error: VolleyError)->Unit){
+        requestQueue.add(getRequest("musicians",
+        { response ->
+            val resp = JSONArray(response)
+            val list = mutableListOf<Artist>()
+            for (i in 0 until resp.length()) {
+                val item = resp.getJSONObject(i)
+
+                list.add(i,
+                    Artist(
+                        id = item.getInt("id"),
+                        name = item.getString("name"),
+                        image = item.getString("image"),
+                        description = item.getString("description"),
+                        birthDate = item.getString("birthDate"),
+                        albums = emptyList(),
+                        performersPrizes = emptyList(),
+                    ))
+            }
+            onComplete(list)
+        },
+        {
+            onError(it)
+        }))
     }
 
     private fun getRequest(path:String, responseListener: Response.Listener<String>, errorListener: Response.ErrorListener): StringRequest {
