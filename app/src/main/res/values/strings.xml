@@ -18,6 +18,7 @@
     <string name="add_track">+ AGREGAR TRACK</string>
     <string name="duration">Duration</string>
     <string name="track_title_header">TRACKS</string>
+    <string name="album_title_header">ALBUMES</string>
     <string name="id_tracks_table">#</string>
     <string name="go_back_button">VOLVER</string>
     <string name="total_artists">Total Artistas:</string>
