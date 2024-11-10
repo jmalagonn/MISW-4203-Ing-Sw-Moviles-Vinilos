@@ -74,6 +74,7 @@ class NetworkServiceAdapter constructor(context: Context) {
             val list = mutableListOf<Artist>()
             for (i in 0 until resp.length()) {
                 val item = resp.getJSONObject(i)
+                val albums = if (item.has("albums")) item.getJSONArray("albums").toAlbumList() else emptyList()
 
                 list.add(i,
                     Artist(
@@ -82,7 +83,7 @@ class NetworkServiceAdapter constructor(context: Context) {
                         image = item.getString("image"),
                         description = item.getString("description"),
                         birthDate = item.getString("birthDate"),
-                        albums = emptyList(),
+                        albums = albums,
                         performersPrizes = emptyList(),
                     ))
             }
@@ -106,6 +107,25 @@ class NetworkServiceAdapter constructor(context: Context) {
                     trackId = track.getInt("id"),
                     name = track.getString("name"),
                     duration = track.getString("duration")
+                )
+            )
+        }
+        return list
+    }
+
+    private fun JSONArray.toAlbumList(): List<Album> {
+        val list = mutableListOf<Album>()
+        for (i in 0 until this.length()) {
+            val album = this.getJSONObject(i)
+            list.add(
+                Album(
+                    albumId = album.getInt("id"),
+                    name = album.getString("name"),
+                    cover = album.getString("cover"),
+                    recordLabel = album.getString("recordLabel"),
+                    releaseDate = album.getString("releaseDate"),
+                    genre = album.getString("genre"),
+                    description = album.getString("description"),
                 )
             )
         }

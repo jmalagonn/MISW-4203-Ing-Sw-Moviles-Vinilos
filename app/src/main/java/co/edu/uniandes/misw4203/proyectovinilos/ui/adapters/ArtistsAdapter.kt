@@ -10,7 +10,7 @@ import co.edu.uniandes.misw4203.proyectovinilos.databinding.ArtistItemBinding
 import co.edu.uniandes.misw4203.proyectovinilos.models.Artist
 import com.bumptech.glide.Glide
 
-class ArtistsAdapter() : RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>() {
+class ArtistsAdapter(private val onArtistClick: (Artist) -> Unit) : RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>() {
     var artists :List<Artist> = emptyList()
         set(value) {
             field = value
@@ -37,6 +37,9 @@ class ArtistsAdapter() : RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>()
                 .into(holder.viewDataBinding.artistImage)
 
             holder.viewDataBinding.executePendingBindings()
+            holder.itemView.setOnClickListener {
+                onArtistClick(artists[position])
+            }
         }
     }
 

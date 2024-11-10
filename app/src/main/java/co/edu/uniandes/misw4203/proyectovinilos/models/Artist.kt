@@ -1,5 +1,7 @@
 package co.edu.uniandes.misw4203.proyectovinilos.models
 
+import java.io.Serializable
+
 data class Artist (
     val id: Int,
     val name: String,
@@ -8,4 +10,4 @@ data class Artist (
     val albums: List<Album>,
     val birthDate: String,
     val performersPrizes: List<PerformerPrize>
-)
+): Serializable
