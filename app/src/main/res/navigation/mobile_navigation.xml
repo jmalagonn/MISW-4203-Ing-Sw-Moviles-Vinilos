@@ -28,6 +28,12 @@
         tools:layout="@layout/fragment_collector" />
 
     <fragment
+        android:id="@+id/collectorDetailFragment"
+        android:name="co.edu.uniandes.misw4203.proyectovinilos.ui.collector.CollectorDetailFragment"
+        android:label="@string/title_collector"
+        tools:layout="@layout/fragment_collector" />
+
+    <fragment
         android:id="@+id/albumDetailFragment"
         android:name="co.edu.uniandes.misw4203.proyectovinilos.ui.album.AlbumDetailFragment"
         tools:layout="@layout/fragment_album_detail" />

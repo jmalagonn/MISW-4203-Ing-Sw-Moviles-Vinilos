@@ -1,10 +1,10 @@
 package co.edu.uniandes.misw4203.proyectovinilos.network
 
 import android.content.Context
-import co.edu.uniandes.misw4203.proyectovinilos.models.Album
+import co.edu.uniandes.misw4203.proyectovinilos.models.Collector
+import co.edu.uniandes.misw4203.proyectovinilos.models.CollectorAlbum
 import co.edu.uniandes.misw4203.proyectovinilos.models.Comment
 import co.edu.uniandes.misw4203.proyectovinilos.models.Performer
-import co.edu.uniandes.misw4203.proyectovinilos.models.Track
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
@@ -13,13 +13,13 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONArray
 
-class NetworkServiceAdapter constructor(context: Context) {
+class CollectorNetworkServiceAdapter constructor(context: Context) {
     companion object{
         const val BASE_URL= "https://backvynils-q6yc.onrender.com/"
-        var instance: NetworkServiceAdapter? = null
+        var instance: CollectorNetworkServiceAdapter? = null
         fun getInstance(context: Context) =
             instance ?: synchronized(this) {
-                instance ?: NetworkServiceAdapter(context).also {
+                instance ?: CollectorNetworkServiceAdapter(context).also {
                     instance = it
                 }
             }
@@ -30,28 +30,25 @@ class NetworkServiceAdapter constructor(context: Context) {
         Volley.newRequestQueue(context.applicationContext)
     }
 
-    fun getAlbums(onComplete:(resp:List<Album>)->Unit, onError: (error: VolleyError)->Unit){
-        requestQueue.add(getRequest("albums",
+    fun getCollectors(onComplete:(resp:List<Collector>)->Unit, onError: (error: VolleyError)->Unit){
+        requestQueue.add(getRequest("collectors",
             { response ->
                 val resp = JSONArray(response)
-                val list = mutableListOf<Album>()
+                val list = mutableListOf<Collector>()
                 for (i in 0 until resp.length()) {
                     val item = resp.getJSONObject(i)
-                    val tracks = if (item.has("tracks")) item.getJSONArray("tracks").toTrackList() else emptyList()
-                    val performers = if (item.has("performers")) item.getJSONArray("performers").toPerformerList() else emptyList()
+                    val collectorAlbums = if (item.has("collectorAlbums")) item.getJSONArray("collectorAlbums").toCollectorAlbumsList() else emptyList()
+                    val favoritePerformers = if (item.has("favoritePerformers")) item.getJSONArray("favoritePerformers").toPerformerList() else emptyList()
                     val comments = if (item.has("comments")) item.getJSONArray("comments").toCommentList() else emptyList()
 
                     list.add(i,
-                        Album(albumId = item.getInt("id"),
+                        Collector(id = item.getInt("id"),
                             name = item.getString("name"),
-                            cover = item.getString("cover"),
-                            recordLabel = item.getString("recordLabel"),
-                            releaseDate = item.getString("releaseDate"),
-                            genre = item.getString("genre"),
-                            description = item.getString("description"),
-                            tracks = tracks,
+                            telephone = item.getString("telephone"),
+                            email = item.getString("email"),
                             comments = comments,
-                            performers = performers
+                            favoritePerformers = favoritePerformers,
+                            collectorAlbums = collectorAlbums
                         ))
                 }
                 onComplete(list)
@@ -65,15 +62,15 @@ class NetworkServiceAdapter constructor(context: Context) {
         return StringRequest(Request.Method.GET, BASE_URL+path, responseListener,errorListener)
     }
 
-    private fun JSONArray.toTrackList(): List<Track> {
-        val list = mutableListOf<Track>()
+    private fun JSONArray.toCollectorAlbumsList(): List<CollectorAlbum> {
+        val list = mutableListOf<CollectorAlbum>()
         for (i in 0 until this.length()) {
-            val track = this.getJSONObject(i)
+            val collectorAlbum = this.getJSONObject(i)
             list.add(
-                Track(
-                    trackId = track.getInt("id"),
-                    name = track.getString("name"),
-                    duration = track.getString("duration")
+                CollectorAlbum(
+                    id = collectorAlbum.getInt("id"),
+                    price = collectorAlbum.getDouble("price"),
+                    status = collectorAlbum.getString("status")
                 )
             )
         }

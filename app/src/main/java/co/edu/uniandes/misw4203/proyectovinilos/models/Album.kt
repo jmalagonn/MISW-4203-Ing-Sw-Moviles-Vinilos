@@ -8,20 +8,6 @@ data class Track(
     val duration: String
 ): Serializable
 
-data class Performer(
-    val performerId:Int,
-    val name:String,
-    val image:String,
-    val description: String,
-    val birthDate:String
-): Serializable
-
-data class Comment(
-    val commentId:Int,
-    val description:String,
-    val rating:String
-): Serializable
-
 data class Album (
     val albumId:Int,
     val name:String,

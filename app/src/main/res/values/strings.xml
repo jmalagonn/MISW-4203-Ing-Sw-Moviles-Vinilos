@@ -20,4 +20,11 @@
     <string name="track_title_header">TRACKS</string>
     <string name="id_tracks_table">#</string>
     <string name="go_back_button">VOLVER</string>
+    <string name="title_list_collectors">Coleccionistas</string>
+    <string name="total_collectors">Total Collecionistas:</string>
+    <string name="search_collector_hint">BUSCAR</string>
+    <string name="add_collector">+ AGREGAR COLLECCIÓN</string>
+    <string name="albums_title_header">ALBUMS</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
