@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import co.edu.uniandes.misw4203.proyectovinilos.database.VinylRoomDatabase
 import co.edu.uniandes.misw4203.proyectovinilos.models.Artist
 import co.edu.uniandes.misw4203.proyectovinilos.repositories.ArtistsRepository
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +17,8 @@ import kotlinx.coroutines.withContext
 class ArtistViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _artists = MutableLiveData<List<Artist>>()
-    private val _artistsRepository = ArtistsRepository(application)
+    private val _artistsRepository = ArtistsRepository(application,
+        VinylRoomDatabase.getDatabase(application.applicationContext).artistsDao())
 
     val artists: LiveData<List<Artist>>
         get() = _artists
