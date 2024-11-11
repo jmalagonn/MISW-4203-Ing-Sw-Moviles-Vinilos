@@ -6,8 +6,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import co.edu.uniandes.misw4203.proyectovinilos.models.Artist
 import co.edu.uniandes.misw4203.proyectovinilos.repositories.ArtistsRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ArtistViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -32,13 +36,19 @@ class ArtistViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     private fun refreshDataFromNetwork() {
-        _artistsRepository.refreshData({
-            _artists.postValue(it)
-            _eventNetworkError.value = false
-            _isNetworkErrorShown.value = false
-        },{
+        try {
+            viewModelScope.launch(Dispatchers.Default){
+                withContext(Dispatchers.IO){
+                    val data = _artistsRepository.refreshData()
+                    _artists.postValue(data)
+                }
+                _eventNetworkError.postValue(false)
+                _isNetworkErrorShown.postValue(false)
+            }
+        }
+        catch (e:Exception){
             _eventNetworkError.value = true
-        })
+        }
     }
 
     fun onNetworkErrorShown() {
