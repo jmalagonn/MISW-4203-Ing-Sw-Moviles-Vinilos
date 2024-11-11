@@ -67,11 +67,11 @@ class NetworkServiceAdapter constructor(context: Context) {
             }))
     }
 
-    fun getArtists(onComplete:(resp:List<Artist>)->Unit, onError: (error: VolleyError)->Unit){
+    suspend fun getArtists() = suspendCoroutine<List<Artist>>{ cont->
+        val list = mutableListOf<Artist>()
         requestQueue.add(getRequest("musicians",
         { response ->
             val resp = JSONArray(response)
-            val list = mutableListOf<Artist>()
             for (i in 0 until resp.length()) {
                 val item = resp.getJSONObject(i)
                 val albums = if (item.has("albums")) item.getJSONArray("albums").toAlbumList() else emptyList()
@@ -87,11 +87,11 @@ class NetworkServiceAdapter constructor(context: Context) {
                         performersPrizes = emptyList(),
                     ))
             }
-            onComplete(list)
-        },
-        {
-            onError(it)
-        }))
+            cont.resume(list)
+
+        },Response.ErrorListener {
+                cont.resumeWithException(it)
+            }))
     }
 
     private fun getRequest(path:String, responseListener: Response.Listener<String>, errorListener: Response.ErrorListener): StringRequest {
