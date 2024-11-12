@@ -9,7 +9,6 @@ import co.edu.uniandes.misw4203.proyectovinilos.models.Track
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
-import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONArray
@@ -148,7 +147,6 @@ class NetworkServiceAdapter constructor(context: Context) {
         }
         return list
     }
-
 
     private fun JSONArray.toCommentList(): List<Comment> {
         val list = mutableListOf<Comment>()

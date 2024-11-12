@@ -1,5 +1,4 @@
 package co.edu.uniandes.misw4203.proyectovinilos.models
-
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable

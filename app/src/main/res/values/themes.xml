@@ -3,7 +3,7 @@
     <style name="Base.Theme.MISW4203ProyectoVinilos" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <item name="android:windowBackground">@color/background_color</item>
-        <item name="android:fontFamily">Roboto</item>
+        <!--<item name="android:fontFamily">Roboto</item>-->
         <item name="android:textColor">@color/white</item>
         <item name="android:buttonStyle">@style/ButtonStyle</item>
         <item name="colorButtonNormal">@color/black</item>
