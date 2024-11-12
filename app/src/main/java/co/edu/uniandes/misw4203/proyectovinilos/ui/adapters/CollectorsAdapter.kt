@@ -1,6 +1,5 @@
 package co.edu.uniandes.misw4203.proyectovinilos.ui.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
