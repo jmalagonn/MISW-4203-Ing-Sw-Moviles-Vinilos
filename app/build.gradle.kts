@@ -2,6 +2,7 @@ plugins {
     id("com.android.application") version "8.6.0"
     id("org.jetbrains.kotlin.android") version "1.9.0"
     id("com.google.devtools.ksp") version libs.versions.ksp.get()
+    id("kotlin-kapt")
 }
 
 
@@ -71,4 +72,8 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidTest)
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.room)
+    ksp(libs.roomCompiler)
+    androidTestImplementation(libs.roomTesting)
+    implementation(libs.gson)
 }

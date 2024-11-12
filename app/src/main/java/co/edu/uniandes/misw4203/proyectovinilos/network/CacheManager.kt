@@ -10,7 +10,7 @@ class CacheManager private constructor(context: Context) {
     private val artistCache: LruCache<String, List<Artist>>
 
     init {
-        val cacheSize = (Runtime.getRuntime().maxMemory() / 1024 / 8).toInt() //Setting 1/8 of the memory for cache
+        val cacheSize = (Runtime.getRuntime().maxMemory() / 1024 / 8).toInt()
         albumCache = LruCache(cacheSize)
         artistCache = LruCache(cacheSize)
     }
