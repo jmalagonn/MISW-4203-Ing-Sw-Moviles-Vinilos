@@ -6,12 +6,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import co.edu.uniandes.misw4203.proyectovinilos.database.VinylRoomDatabase
 import co.edu.uniandes.misw4203.proyectovinilos.models.Collector
 import co.edu.uniandes.misw4203.proyectovinilos.repositories.CollectorsRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class CollectorViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val collectorRepository = CollectorsRepository(application)
+    private val _collectorRepository = CollectorsRepository(application,
+        VinylRoomDatabase.getDatabase(application.applicationContext).collectorsDao())
     private val _collectors = MutableLiveData<List<Collector>>()
     val collectors: LiveData<List<Collector>>
         get() = _collectors
@@ -25,17 +31,23 @@ class CollectorViewModel(application: Application) : AndroidViewModel(applicatio
         get() = _isNetworkErrorShown
 
     init {
-        refreshDataFromRepository()
+        refreshDataFromNetwork()
     }
 
-    private fun refreshDataFromRepository() {
-        collectorRepository.refreshData({
-            _collectors.postValue(it)
-            _eventNetworkError.value = false
-            _isNetworkErrorShown.value = false
-        },{
+    private fun refreshDataFromNetwork() {
+        try {
+            viewModelScope.launch(Dispatchers.Default){
+                withContext(Dispatchers.IO){
+                    val data = _collectorRepository.refreshData()
+                    _collectors.postValue(data)
+                }
+                _eventNetworkError.postValue(false)
+                _isNetworkErrorShown.postValue(false)
+            }
+        }
+        catch (e:Exception){
             _eventNetworkError.value = true
-        })
+        }
     }
 
     fun onNetworkErrorShown() {
