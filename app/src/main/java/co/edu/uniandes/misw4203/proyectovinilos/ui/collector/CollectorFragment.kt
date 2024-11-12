@@ -74,7 +74,9 @@ class CollectorFragment : Fragment() {
         val activity = requireNotNull(this.activity) {
             "You can only access the viewModel after onActivityCreated()"
         }
-        viewModel = ViewModelProvider(this, CollectorViewModel.Factory(activity.application)).get(CollectorViewModel::class.java)
+        viewModel = ViewModelProvider(this, CollectorViewModel.Factory(activity.application))
+            .get(CollectorViewModel::class.java)
+
         viewModel.collectors.observe(viewLifecycleOwner, Observer<List<Collector>> { collectors ->
             Log.d("CollectorsFragment", "Received collectors: ${collectors.size}")
             collectorList = collectors
@@ -82,7 +84,7 @@ class CollectorFragment : Fragment() {
             binding.progressBar.visibility = View.GONE
 
             // Show Counter collectors
-            binding.totalCollectorsTextView.text = "Total de coleccionistas: ${collectors.size}"
+            binding.totalCollectorsTextView.text = "Total coleccionistas: ${collectors.size}"
         })
 
         viewModel.eventNetworkError.observe(viewLifecycleOwner, Observer<Boolean> { isNetworkError ->
@@ -110,7 +112,7 @@ class CollectorFragment : Fragment() {
         }
 
         viewModelAdapter?.collectors = filteredList
-        binding.totalCollectorsTextView.text = "Total de coleccionistas: ${filteredList.size}"
+        binding.totalCollectorsTextView.text = "Total coleccionistas: ${filteredList.size}"
     }
 
     private fun showCollectorDetail(collector: Collector) {

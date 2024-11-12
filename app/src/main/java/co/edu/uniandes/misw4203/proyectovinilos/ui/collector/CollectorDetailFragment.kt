@@ -1,6 +1,7 @@
 package co.edu.uniandes.misw4203.proyectovinilos.ui.collector
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,13 +16,10 @@ import co.edu.uniandes.misw4203.proyectovinilos.models.Collector
 import co.edu.uniandes.misw4203.proyectovinilos.models.CollectorAlbum
 import co.edu.uniandes.misw4203.proyectovinilos.models.Comment
 import co.edu.uniandes.misw4203.proyectovinilos.models.Performer
+import co.edu.uniandes.misw4203.proyectovinilos.ui.adapters.FavoritePerformerAdapter
 import co.edu.uniandes.misw4203.proyectovinilos.ui.adapters.TrackAdapter
 import com.bumptech.glide.Glide
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
@@ -36,8 +34,8 @@ class CollectorDetailFragment : Fragment() {
     private var collectorTelephone: String? = null
     private var collectorEmail: String? = null
     private var collectorAvatar: String? = null
-    private var collectorAlbums: List<CollectorAlbum>? = null
-    // private lateinit var albumAdapter: CollectorAlbumAdapter
+    private var favoritePerformers: List<Performer>? = null
+    private lateinit var favoritePerformersAdapter: FavoritePerformerAdapter
     private var isAdmin: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,16 +56,24 @@ class CollectorDetailFragment : Fragment() {
             collectorName = it.name
             collectorTelephone = it.telephone
             collectorEmail = it.email
-            collectorAlbums = it.collectorAlbums
+            favoritePerformers = it.favoritePerformers
+
+            Log.d("PRUEBA FP", it.favoritePerformers[0].image)
+
+            collectorAvatar = if (!favoritePerformers.isNullOrEmpty()) {
+                it.favoritePerformers[0].image
+            } else {
+                null
+            }
         }
 
+        bindAlbumDetails()
 
-        // Config Recycler view for Collector Albums
-        //  collectorAlbums?.let {
-        //  albumAdapter = CollectorAlbumAdapter(it)
-        //  binding.albumRecyclerView.layoutManager = LinearLayoutManager(context)
-        //  binding.albumRecyclerView.adapter = albumAdapter
-        // }
+        favoritePerformers?.let {
+            favoritePerformersAdapter = FavoritePerformerAdapter(it)
+            binding.favoritePerformersRecyclerView.layoutManager = LinearLayoutManager(context)
+            binding.favoritePerformersRecyclerView.adapter = favoritePerformersAdapter
+        }
 
         // Go back button
         val goBackButton = view.findViewById<Button>(R.id.goBack)
@@ -76,6 +82,20 @@ class CollectorDetailFragment : Fragment() {
         }
 
         return view
+    }
+
+    private fun bindAlbumDetails() {
+        binding.collectorName.text = collectorName
+        binding.collectorTel.text = collectorTelephone
+        binding.collectorEmail.text = collectorEmail
+
+        // Load Image
+        // val coverUrl = collectorAvatar
+        Glide.with(this)
+            .load(collectorAvatar)
+            .placeholder(R.drawable.ic_collector_image)
+            .error(R.drawable.ic_collector_image)
+            .into(binding.collectorAvatar)
     }
 
     override fun onDestroyView() {

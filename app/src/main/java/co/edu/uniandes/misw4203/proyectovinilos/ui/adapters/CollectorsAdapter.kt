@@ -1,5 +1,6 @@
 package co.edu.uniandes.misw4203.proyectovinilos.ui.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
@@ -30,12 +31,20 @@ class CollectorsAdapter(private val onCollectorClick: (Collector) -> Unit) : Rec
     override fun onBindViewHolder(holder: CollectorViewHolder, position: Int) {
         holder.viewDataBinding.also {
             it.collector = collectors[position]
-            // Load profile picture using Glide
-            Glide.with(holder.viewDataBinding.root.context)
-                .load(collectors[position].name)
-                .placeholder(android.R.drawable.ic_menu_gallery)
-                .error(android.R.drawable.ic_menu_gallery)
-                .into(holder.viewDataBinding.albumCover)
+
+            // Get the cover of the first album, if it exists
+            val firstAlbumCover = collectors[position].collectorAlbums.firstOrNull()?.album?.cover
+            if (!firstAlbumCover.isNullOrEmpty()) {
+                // Load the album cover image using Glide
+                Glide.with(holder.viewDataBinding.root.context)
+                    .load(firstAlbumCover)
+                    .placeholder(android.R.drawable.ic_menu_gallery)
+                    .error(android.R.drawable.ic_menu_gallery)
+                    .into(holder.viewDataBinding.albumCover)
+            } else {
+                // Set a placeholder if there is no album cover
+                holder.viewDataBinding.albumCover.setImageResource(R.drawable.ic_collector_image)
+            }
 
             holder.viewDataBinding.executePendingBindings()
             holder.itemView.setOnClickListener {

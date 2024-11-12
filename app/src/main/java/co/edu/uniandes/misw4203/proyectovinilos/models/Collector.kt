@@ -16,5 +16,6 @@ data class Collector(
 data class CollectorAlbum(
     val id: Int,
     val price: Double,
-    val status: String
+    val status: String,
+    val album: Album? = null
 ): Serializable
