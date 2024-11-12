@@ -2,6 +2,7 @@ package co.edu.uniandes.misw4203.proyectovinilos.network
 
 import android.content.Context
 import co.edu.uniandes.misw4203.proyectovinilos.models.Album
+import co.edu.uniandes.misw4203.proyectovinilos.models.Artist
 import co.edu.uniandes.misw4203.proyectovinilos.models.Comment
 import co.edu.uniandes.misw4203.proyectovinilos.models.Performer
 import co.edu.uniandes.misw4203.proyectovinilos.models.Track
@@ -12,6 +13,9 @@ import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONArray
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 class NetworkServiceAdapter constructor(context: Context) {
     companion object{
@@ -30,11 +34,13 @@ class NetworkServiceAdapter constructor(context: Context) {
         Volley.newRequestQueue(context.applicationContext)
     }
 
-    fun getAlbums(onComplete:(resp:List<Album>)->Unit, onError: (error: VolleyError)->Unit){
+    //Setting coroutine
+    suspend fun getAlbums()= suspendCoroutine<List<Album>>{ cont->
+        val list = mutableListOf<Album>()
         requestQueue.add(getRequest("albums",
             { response ->
                 val resp = JSONArray(response)
-                val list = mutableListOf<Album>()
+
                 for (i in 0 until resp.length()) {
                     val item = resp.getJSONObject(i)
                     val tracks = if (item.has("tracks")) item.getJSONArray("tracks").toTrackList() else emptyList()
@@ -54,10 +60,37 @@ class NetworkServiceAdapter constructor(context: Context) {
                             performers = performers
                         ))
                 }
-                onComplete(list)
-            },
-            {
-                onError(it)
+                cont.resume(list)
+
+            },Response.ErrorListener {
+                cont.resumeWithException(it)
+            }))
+    }
+
+    suspend fun getArtists() = suspendCoroutine<List<Artist>>{ cont->
+        val list = mutableListOf<Artist>()
+        requestQueue.add(getRequest("musicians",
+        { response ->
+            val resp = JSONArray(response)
+            for (i in 0 until resp.length()) {
+                val item = resp.getJSONObject(i)
+                val albums = if (item.has("albums")) item.getJSONArray("albums").toAlbumList() else emptyList()
+
+                list.add(i,
+                    Artist(
+                        id = item.getInt("id"),
+                        name = item.getString("name"),
+                        image = item.getString("image"),
+                        description = item.getString("description"),
+                        birthDate = item.getString("birthDate"),
+                        albums = albums,
+                        performersPrizes = emptyList(),
+                    ))
+            }
+            cont.resume(list)
+
+        },Response.ErrorListener {
+                cont.resumeWithException(it)
             }))
     }
 
@@ -74,6 +107,25 @@ class NetworkServiceAdapter constructor(context: Context) {
                     trackId = track.getInt("id"),
                     name = track.getString("name"),
                     duration = track.getString("duration")
+                )
+            )
+        }
+        return list
+    }
+
+    private fun JSONArray.toAlbumList(): List<Album> {
+        val list = mutableListOf<Album>()
+        for (i in 0 until this.length()) {
+            val album = this.getJSONObject(i)
+            list.add(
+                Album(
+                    albumId = album.getInt("id"),
+                    name = album.getString("name"),
+                    cover = album.getString("cover"),
+                    recordLabel = album.getString("recordLabel"),
+                    releaseDate = album.getString("releaseDate"),
+                    genre = album.getString("genre"),
+                    description = album.getString("description"),
                 )
             )
         }

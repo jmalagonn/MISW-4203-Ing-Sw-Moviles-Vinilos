@@ -27,7 +27,7 @@ class BottomBarActivity : AppCompatActivity() {
 
         // Ocultar BottomNavigationView en el AlbumDetailFragment
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.albumDetailFragment) {
+            if (destination.id == R.id.albumDetailFragment || destination.id == R.id.artistDetailFragment) {
                 navView.visibility = View.GONE
             } else {
                 navView.visibility = View.VISIBLE

@@ -1,5 +1,6 @@
 package co.edu.uniandes.misw4203.proyectovinilos.ui.album
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,11 +9,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import co.edu.uniandes.misw4203.proyectovinilos.MainActivity
 import co.edu.uniandes.misw4203.proyectovinilos.R
 import co.edu.uniandes.misw4203.proyectovinilos.databinding.FragmentAlbumBinding
 import co.edu.uniandes.misw4203.proyectovinilos.models.Album
@@ -66,6 +69,12 @@ class AlbumFragment : Fragment() {
             }
             override fun afterTextChanged(s: Editable?) {}
         })
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                navigateToLogin()
+            }
+        })
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -118,5 +127,11 @@ class AlbumFragment : Fragment() {
             putBoolean("isAdmin",isAdmin)
         }
         findNavController().navigate(R.id.albumDetailFragment, bundle)
+    }
+
+    private fun navigateToLogin() {
+        val intent = Intent(requireActivity(), MainActivity::class.java)
+        startActivity(intent)
+        requireActivity().finish()
     }
 }
