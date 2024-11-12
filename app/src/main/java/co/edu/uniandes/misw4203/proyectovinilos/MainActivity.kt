@@ -1,5 +1,6 @@
 package co.edu.uniandes.misw4203.proyectovinilos
 
+import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -10,6 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.textfield.TextInputEditText
 import android.app.Dialog
+import co.edu.uniandes.misw4203.proyectovinilos.database.VinylRoomDatabase
 
 class MainActivity : AppCompatActivity() {
 
@@ -85,6 +87,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         dialog.show()
+    }
+
+    class VinylsApplication: Application()  {
+        val database by lazy { VinylRoomDatabase.getDatabase(this) }
     }
 
 

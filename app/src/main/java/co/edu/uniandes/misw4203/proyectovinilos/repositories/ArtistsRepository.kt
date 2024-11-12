@@ -2,33 +2,44 @@ package co.edu.uniandes.misw4203.proyectovinilos.repositories
 
 import android.app.Application
 import android.util.Log
-import co.edu.uniandes.misw4203.proyectovinilos.models.Album
+import co.edu.uniandes.misw4203.proyectovinilos.database.dao.ArtistsDao
 import co.edu.uniandes.misw4203.proyectovinilos.models.Artist
 import co.edu.uniandes.misw4203.proyectovinilos.network.NetworkServiceAdapter
-import com.android.volley.VolleyError
 
-class ArtistsRepository(private val application: Application) {
+class ArtistsRepository(private val application: Application, private val artistsDao: ArtistsDao) {
+
     suspend fun refreshData(): List<Artist> {
-        // Init cache manager
-        val cacheManager = CacheManager.getInstance(application.applicationContext)
-
         return try {
-            // Get info from API
-            val artists = NetworkServiceAdapter.getInstance(application).getArtists()
-            if (artists.isNotEmpty()) {
-                //Update info in cache
-                cacheManager.addArtist(artists)
-                Log.d("Cache decision", "Data fetched from network and cached")
-                artists
+            // Get albums from API
+            val apiData = NetworkServiceAdapter.getInstance(application).getArtists()
+
+            if (apiData.isEmpty()) {
+                Log.d("ArtistsRepository", "No data from API, checking cache...")
+                // If API fails, get data from cache
+                return getCachedArtists()
             } else {
-                // Get artists from cache
-                Log.d("Cache decision", "No albums from network, returning cached data")
-                cacheManager.getArtists() ?: emptyList()
+                Log.d("ArtistsRepository", "Data received from API, inserting into database...")
+                // Save data in cache room
+                artistsDao.insertArtists(apiData)
+                Log.d("ArtistsRepository", "Data inserted into database.")
+                return apiData
             }
         } catch (e: Exception) {
-            // Get artist from cache
-            Log.e("Network error", "Error fetching data from network, returning cached data", e)
-            cacheManager.getArtists() ?: emptyList()
+            Log.e("ArtistsRepository", "Error fetching data from API: ${e.message}")
+            // Return cached data in case of an error
+            return getCachedArtists()
+        }
+    }
+
+    // Get cached albums
+    private suspend fun getCachedArtists(): List<Artist> {
+        val cached = artistsDao.getArtists()
+        return if (cached.isEmpty()) {
+            Log.d("ArtistsRepository", "No data in cache, returning empty list.")
+            emptyList()  // return empty list
+        } else {
+            Log.d("ArtistsRepository", "Data found in cache, returning.")
+            cached  // return cached data
         }
     }
 }

@@ -1,9 +1,13 @@
 package co.edu.uniandes.misw4203.proyectovinilos.models
 
 import java.io.Serializable
+import androidx.room.*
+import co.edu.uniandes.misw4203.proyectovinilos.database.dao.Converters
 
-data class Track(
-    val trackId:Int,
+@Entity(tableName = "albums_table")
+@TypeConverters(Converters::class)
+data class Album(
+    @PrimaryKey val albumId: Int,
     val name: String,
     val duration: String
 ): Serializable
