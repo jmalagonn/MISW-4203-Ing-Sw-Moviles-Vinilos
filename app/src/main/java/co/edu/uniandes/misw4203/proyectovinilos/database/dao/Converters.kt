@@ -1,6 +1,7 @@
 package co.edu.uniandes.misw4203.proyectovinilos.database.dao
 import androidx.room.TypeConverter
 import co.edu.uniandes.misw4203.proyectovinilos.models.Album
+import co.edu.uniandes.misw4203.proyectovinilos.models.CollectorAlbum
 import co.edu.uniandes.misw4203.proyectovinilos.models.Comment
 import co.edu.uniandes.misw4203.proyectovinilos.models.Performer
 import co.edu.uniandes.misw4203.proyectovinilos.models.PerformerPrize
@@ -73,4 +74,18 @@ class Converters {
         val type = object : TypeToken<List<PerformerPrize>>() {}.type
         return gson.fromJson(value, type)
     }
+
+    @TypeConverter
+    fun fromCollectorAlbumList(value: List<CollectorAlbum>): String {
+        val gson = Gson()
+        return gson.toJson(value)
+    }
+
+    @TypeConverter
+    fun toCollectorAlbumList(value: String): List<CollectorAlbum> {
+        val gson = Gson()
+        val type = object : TypeToken<List<CollectorAlbum>>() {}.type
+        return gson.fromJson(value, type)
+    }
+
 }

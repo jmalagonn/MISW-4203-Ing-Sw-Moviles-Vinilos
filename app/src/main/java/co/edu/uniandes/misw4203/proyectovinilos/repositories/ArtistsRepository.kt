@@ -10,7 +10,7 @@ class ArtistsRepository(private val application: Application, private val artist
 
     suspend fun refreshData(): List<Artist> {
         return try {
-            // Get albums from API
+            // Get artists from API
             val apiData = NetworkServiceAdapter.getInstance(application).getArtists()
 
             if (apiData.isEmpty()) {
@@ -31,7 +31,7 @@ class ArtistsRepository(private val application: Application, private val artist
         }
     }
 
-    // Get cached albums
+    // Get cached artists
     private suspend fun getCachedArtists(): List<Artist> {
         val cached = artistsDao.getArtists()
         return if (cached.isEmpty()) {
