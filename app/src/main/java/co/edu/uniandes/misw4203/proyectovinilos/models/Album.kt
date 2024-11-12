@@ -9,12 +9,7 @@ import co.edu.uniandes.misw4203.proyectovinilos.database.dao.Converters
 data class Album(
     @PrimaryKey val albumId: Int,
     val name: String,
-    val duration: String
-): Serializable
-
-data class Album (
-    val albumId:Int,
-    val name:String,
+    val duration: String,
     val cover:String,
     val releaseDate:String,
     val description:String,
