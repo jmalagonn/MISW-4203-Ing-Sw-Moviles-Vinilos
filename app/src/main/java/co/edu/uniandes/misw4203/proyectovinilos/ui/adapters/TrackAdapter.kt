@@ -1,5 +1,6 @@
 package co.edu.uniandes.misw4203.proyectovinilos.ui.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,7 @@ class TrackAdapter(private val tracks: List<Track>) : RecyclerView.Adapter<Track
         return TrackViewHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: TrackViewHolder, position: Int) {
         val track = tracks[position]
         holder.counter.text = (position + 1).toString()

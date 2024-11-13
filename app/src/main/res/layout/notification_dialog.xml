@@ -12,7 +12,7 @@
         android:id="@+id/notificationMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Notificación"
+        android:text="@string/notification"
         android:textSize="18sp"
         android:textColor="@android:color/black"
         android:layout_marginBottom="16dp" />
@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Cerrar"
+        android:text="@string/close_modal"
         android:layout_gravity="center"
         style="?attr/buttonStyle"/>
 

@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -60,22 +59,22 @@ class ArtistFragment : Fragment() {
         val activity = requireNotNull(this.activity) {
             "You can only access the viewModel after onActivityCreated()"
         }
-        _viewModel = ViewModelProvider(this).get(
-            ArtistViewModel::class.java)
+        _viewModel = ViewModelProvider(this)[ArtistViewModel::class.java]
 
-        _viewModel.artists.observe(viewLifecycleOwner, Observer<List<Artist>> { artists ->
+        _viewModel.artists.observe(viewLifecycleOwner) { artists ->
             Log.d("ArtistFragment", "Received albums: ${artists.size}")
             _artistsList = artists
             _viewModelAdapter?.artists = artists
             binding.progressBar.visibility = View.GONE
 
             // Show Counter albums
-            binding.totalArtistsTextView.text = "Total de artistas: ${artists.size}"
-        })
+            binding.totalArtistsTextView.text =
+                getString(R.string.total_artists_counter, artists.size.toString())
+        }
 
-        _viewModel.eventNetworkError.observe(viewLifecycleOwner, Observer<Boolean> { isNetworkError ->
+        _viewModel.eventNetworkError.observe(viewLifecycleOwner) { isNetworkError ->
             if (isNetworkError) onNetworkError()
-        })
+        }
     }
 
     override fun onDestroyView() {
@@ -98,7 +97,7 @@ class ArtistFragment : Fragment() {
         }
 
         _viewModelAdapter?.artists = filteredList
-        binding.totalArtistsTextView.text = "Total de artistas: ${filteredList.size}"
+        binding.totalArtistsTextView.text = getString(R.string.total_artists_counter,filteredList.size.toString())
     }
 
     private fun showArtistDetail(artist: Artist) {

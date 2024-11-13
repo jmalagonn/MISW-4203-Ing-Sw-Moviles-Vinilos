@@ -5,7 +5,6 @@ import android.util.Log
 import co.edu.uniandes.misw4203.proyectovinilos.database.dao.CollectorsDao
 import co.edu.uniandes.misw4203.proyectovinilos.models.Collector
 import co.edu.uniandes.misw4203.proyectovinilos.network.NetworkServiceAdapter
-import com.android.volley.VolleyError
 
 class CollectorsRepository (private val application: Application, private val collectorDao: CollectorsDao){
     suspend fun refreshData(): List<Collector> {
@@ -32,7 +31,7 @@ class CollectorsRepository (private val application: Application, private val co
     }
 
     // Get cached Collectors
-    private suspend fun getCachedCollectors(): List<Collector> {
+    private fun getCachedCollectors(): List<Collector> {
         val cached = collectorDao.getCollectors()
         return if (cached.isEmpty()) {
             Log.d("CollectorsRepository", "No data in cache, returning empty list.")

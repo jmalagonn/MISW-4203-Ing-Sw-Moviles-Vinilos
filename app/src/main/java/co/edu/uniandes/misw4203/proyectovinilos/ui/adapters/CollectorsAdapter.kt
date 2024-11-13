@@ -1,5 +1,6 @@
 package co.edu.uniandes.misw4203.proyectovinilos.ui.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
@@ -13,6 +14,7 @@ import com.bumptech.glide.Glide
 class CollectorsAdapter(private val onCollectorClick: (Collector) -> Unit) : RecyclerView.Adapter<CollectorsAdapter.CollectorViewHolder>() {
 
     var collectors: List<Collector> = emptyList()
+        @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
             notifyDataSetChanged()

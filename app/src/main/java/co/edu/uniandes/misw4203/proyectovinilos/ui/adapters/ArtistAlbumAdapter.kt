@@ -1,5 +1,6 @@
 package co.edu.uniandes.misw4203.proyectovinilos.ui.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,7 @@ class ArtistAlbumAdapter(private val albums: List<Album>) : RecyclerView.Adapter
         return AlbumViewHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: AlbumViewHolder, position: Int) {
         val album = albums[position]
         holder.counter.text = (position + 1).toString() // Muestra el número de álbum como contador

@@ -1,5 +1,6 @@
 package co.edu.uniandes.misw4203.proyectovinilos.ui.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,7 @@ class FavoritePerformerAdapter(private val favoritePerformers: List<Performer>):
         return FavoritePerformerAdapterViewHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: FavoritePerformerAdapterViewHolder, position: Int) {
         val favoritePerformer = favoritePerformers[position]
         holder.counter.text = (position + 1).toString()
