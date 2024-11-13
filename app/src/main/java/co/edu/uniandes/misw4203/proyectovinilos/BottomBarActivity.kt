@@ -25,13 +25,10 @@ class BottomBarActivity : AppCompatActivity() {
         }
         navController.navigate(R.id.navigation_album, bundle)
 
-        // Ocultar BottomNavigationView en el AlbumDetailFragment
+        // Ocultar BottomNavigationView en fragmentos de detalle
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.albumDetailFragment || destination.id == R.id.artistDetailFragment) {
-                navView.visibility = View.GONE
-            } else {
-                navView.visibility = View.VISIBLE
-            }
+            val hiddenDestinations = listOf(R.id.albumDetailFragment, R.id.artistDetailFragment, R.id.collectorDetailFragment)
+            navView.visibility = if (destination.id in hiddenDestinations) View.GONE else View.VISIBLE
         }
 
     }
