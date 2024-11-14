@@ -21,6 +21,7 @@ import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
 import org.hamcrest.core.IsInstanceOf
+import org.junit.After
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -32,6 +33,11 @@ class LoginViewArtist {
     @Rule
     @JvmField
     var mActivityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
+
+    @After
+    fun tearDown() {
+        mActivityScenarioRule.scenario.close()
+    }
 
     @Test
     fun loginViewArtist() {

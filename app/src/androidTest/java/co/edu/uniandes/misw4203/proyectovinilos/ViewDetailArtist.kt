@@ -11,7 +11,6 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withContentDescription
 import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
 import androidx.test.espresso.matcher.ViewMatchers.withId
@@ -74,23 +73,9 @@ class ViewDetailArtist {
         )
         textInputEditText2.perform(replaceText("password"), closeSoftKeyboard())
 
-        val materialButton = onView(
-            allOf(
-                withId(R.id.loginButton), withText("Login"),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.main),
-                        childAtPosition(
-                            withId(android.R.id.content),
-                            0
-                        )
-                    ),
-                    5
-                ),
-                isDisplayed()
-            )
-        )
-        materialButton.perform(click())
+        // Hacer clic en el botón de login
+        onView(allOf(withId(R.id.loginButton), withText("Login")))
+            .perform(click())
 
         // Selección aleatoria del índice del artista entre 1 y 3
         val randomArtistPosition = Random.nextInt(1, 3)

@@ -6,9 +6,10 @@ import org.junit.runners.Suite
 @RunWith(Suite::class)
 @Suite.SuiteClasses(
     LoginViewArtist::class,
-    LoginFilterArtist::class,
-    LoginViewArtistOffline::class,
     ViewDetailArtist::class,
+    LoginFilterArtist::class,
+    DetailArtistBackButtom::class,
+    LoginViewArtistOffline::class,
 
 
     )

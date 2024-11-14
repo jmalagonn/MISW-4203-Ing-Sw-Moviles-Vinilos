@@ -30,6 +30,7 @@ import org.hamcrest.CoreMatchers.containsString
 import android.os.Handler
 import android.os.Looper
 import androidx.test.espresso.matcher.ViewMatchers.withContentDescription
+import org.junit.After
 
 
 @LargeTest
@@ -39,6 +40,11 @@ class LoginFilterArtist {
     @Rule
     @JvmField
     var mActivityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
+
+    @After
+    fun tearDown() {
+        mActivityScenarioRule.scenario.close()
+    }
 
     @Test
     fun loginFilterArtist() {

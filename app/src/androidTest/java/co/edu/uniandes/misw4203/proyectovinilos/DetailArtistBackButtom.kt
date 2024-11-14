@@ -90,6 +90,7 @@ class DetailArtistBackButtom {
                 isDisplayed()
             )
         )
+        Thread.sleep(700)
         materialButton.perform(click())
 
         // Selección aleatoria del índice del artista entre 1 y 3
