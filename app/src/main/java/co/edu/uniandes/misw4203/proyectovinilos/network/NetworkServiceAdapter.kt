@@ -3,6 +3,8 @@ package co.edu.uniandes.misw4203.proyectovinilos.network
 import android.content.Context
 import co.edu.uniandes.misw4203.proyectovinilos.models.Album
 import co.edu.uniandes.misw4203.proyectovinilos.models.Artist
+import co.edu.uniandes.misw4203.proyectovinilos.models.Collector
+import co.edu.uniandes.misw4203.proyectovinilos.models.CollectorAlbum
 import co.edu.uniandes.misw4203.proyectovinilos.models.Comment
 import co.edu.uniandes.misw4203.proyectovinilos.models.Performer
 import co.edu.uniandes.misw4203.proyectovinilos.models.Track
@@ -67,11 +69,11 @@ class NetworkServiceAdapter constructor(context: Context) {
             }))
     }
 
-    fun getArtists(onComplete:(resp:List<Artist>)->Unit, onError: (error: VolleyError)->Unit){
+    suspend fun getArtists() = suspendCoroutine<List<Artist>>{ cont->
+        val list = mutableListOf<Artist>()
         requestQueue.add(getRequest("musicians",
         { response ->
             val resp = JSONArray(response)
-            val list = mutableListOf<Artist>()
             for (i in 0 until resp.length()) {
                 val item = resp.getJSONObject(i)
                 val albums = if (item.has("albums")) item.getJSONArray("albums").toAlbumList() else emptyList()
@@ -87,11 +89,39 @@ class NetworkServiceAdapter constructor(context: Context) {
                         performersPrizes = emptyList(),
                     ))
             }
-            onComplete(list)
-        },
-        {
-            onError(it)
-        }))
+            cont.resume(list)
+
+        },Response.ErrorListener {
+                cont.resumeWithException(it)
+            }))
+    }
+
+    suspend fun getCollectors() = suspendCoroutine<List<Collector>>{ cont->
+        val list = mutableListOf<Collector>()
+        requestQueue.add(getRequest("collectors",
+            { response ->
+                val resp = JSONArray(response)
+                for (i in 0 until resp.length()) {
+                    val item = resp.getJSONObject(i)
+                    val collectorAlbums = if (item.has("collectorAlbums")) item.getJSONArray("collectorAlbums").toCollectorAlbumsList() else emptyList()
+                    val favoritePerformers = if (item.has("favoritePerformers")) item.getJSONArray("favoritePerformers").toPerformerList() else emptyList()
+                    val comments = if (item.has("comments")) item.getJSONArray("comments").toCommentList() else emptyList()
+
+                    list.add(i,
+                        Collector(id = item.getInt("id"),
+                            name = item.getString("name"),
+                            telephone = item.getString("telephone"),
+                            email = item.getString("email"),
+                            comments = comments,
+                            favoritePerformers = favoritePerformers,
+                            collectorAlbums = collectorAlbums
+                        ))
+                }
+                cont.resume(list)
+
+            },Response.ErrorListener {
+                cont.resumeWithException(it)
+            }))
     }
 
     private fun getRequest(path:String, responseListener: Response.Listener<String>, errorListener: Response.ErrorListener): StringRequest {
@@ -149,7 +179,6 @@ class NetworkServiceAdapter constructor(context: Context) {
         return list
     }
 
-
     private fun JSONArray.toCommentList(): List<Comment> {
         val list = mutableListOf<Comment>()
         for (i in 0 until this.length()) {
@@ -159,6 +188,21 @@ class NetworkServiceAdapter constructor(context: Context) {
                     commentId = comment.getInt("id"),
                     description = comment.getString("description"),
                     rating = comment.getString("rating")
+                )
+            )
+        }
+        return list
+    }
+
+    private fun JSONArray.toCollectorAlbumsList(): List<CollectorAlbum> {
+        val list = mutableListOf<CollectorAlbum>()
+        for (i in 0 until this.length()) {
+            val collectorAlbum = this.getJSONObject(i)
+            list.add(
+                CollectorAlbum(
+                    id = collectorAlbum.getInt("id"),
+                    price = collectorAlbum.getDouble("price"),
+                    status = collectorAlbum.getString("status")
                 )
             )
         }

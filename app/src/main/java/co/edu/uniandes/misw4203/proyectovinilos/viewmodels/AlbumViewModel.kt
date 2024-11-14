@@ -3,6 +3,7 @@ package co.edu.uniandes.misw4203.proyectovinilos.viewmodels
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
+import co.edu.uniandes.misw4203.proyectovinilos.database.VinylRoomDatabase
 import co.edu.uniandes.misw4203.proyectovinilos.models.Album
 import co.edu.uniandes.misw4203.proyectovinilos.repositories.AlbumsRepository
 import kotlinx.coroutines.Dispatchers
@@ -13,7 +14,8 @@ class AlbumViewModel(application: Application) :  AndroidViewModel(application) 
 
     private val _albums = MutableLiveData<List<Album>>()
 
-    private val albumsRepository = AlbumsRepository(application)
+    private val albumsRepository = AlbumsRepository(application,
+        VinylRoomDatabase.getDatabase(application.applicationContext).albumsDao())
 
     val albums: LiveData<List<Album>>
         get() = _albums

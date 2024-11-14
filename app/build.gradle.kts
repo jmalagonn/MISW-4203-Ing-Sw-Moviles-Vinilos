@@ -2,6 +2,7 @@ plugins {
     id("com.android.application") version "8.6.0"
     id("org.jetbrains.kotlin.android") version "1.9.0"
     id("com.google.devtools.ksp") version libs.versions.ksp.get()
+    id("kotlin-kapt")
 }
 
 
@@ -54,6 +55,7 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.espresso.contrib)
+    implementation(libs.androidx.room.common)
     ksp(libs.ksp.glide)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -71,4 +73,8 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidTest)
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.room)
+    ksp(libs.roomCompiler)
+    androidTestImplementation(libs.roomTesting)
+    implementation(libs.gson)
 }
