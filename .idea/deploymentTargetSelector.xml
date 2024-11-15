@@ -13,7 +13,19 @@
         </DropdownSelection>
         <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="AllTestsSuiteHU03HU04">
+      <SelectionState runConfigName="LoginViewCollectors">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="LoginViewCollectorDetail">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="GoBackToCollectorsList">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="LoginFIlterCollector">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="LoginViewCollectorsNoInternet">
         <option name="selectionMode" value="DROPDOWN" />
         <DropdownSelection timestamp="2024-11-14T10:33:20.860581300Z">
           <Target type="DEFAULT_BOOT">
