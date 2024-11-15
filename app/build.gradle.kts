@@ -56,6 +56,7 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.espresso.contrib)
     implementation(libs.androidx.room.common)
+    implementation(libs.androidx.uiautomator)
     ksp(libs.ksp.glide)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
