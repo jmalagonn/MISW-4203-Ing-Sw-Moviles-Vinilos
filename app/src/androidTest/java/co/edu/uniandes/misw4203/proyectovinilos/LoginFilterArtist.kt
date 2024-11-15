@@ -29,6 +29,7 @@ import org.junit.runner.RunWith
 import org.hamcrest.CoreMatchers.containsString
 import android.os.Handler
 import android.os.Looper
+import android.support.test.InstrumentationRegistry
 import androidx.test.espresso.matcher.ViewMatchers.withContentDescription
 import org.junit.After
 
@@ -127,19 +128,18 @@ class LoginFilterArtist {
             )
         )
         Thread.sleep(2000)
-        appCompatEditText.perform(scrollTo(), replaceText("RUBÉN"), closeSoftKeyboard())
+        appCompatEditText.perform(scrollTo(), replaceText("ADELE"), closeSoftKeyboard())
         Thread.sleep(2000)
-        Handler(Looper.getMainLooper()).postDelayed({
-            val textView = onView(
-                allOf(
-                    withId(R.id.artistTitle),
-                    withParent(withParent(IsInstanceOf.instanceOf(androidx.cardview.widget.CardView::class.java))),
-                    isDisplayed()
-                )
+
+        val textView = onView(
+            allOf(
+                withId(R.id.artistName),
+                withParent(withParent(IsInstanceOf.instanceOf(androidx.cardview.widget.CardView::class.java))),
+                isDisplayed()
             )
-            // Aserción: Verificar que el texto del álbum contiene "POETA"
-            textView.check(matches(withText(containsString("RUBÉN"))))
-        }, 3000)  // Tiempo de espera en milisegundos (3 segundos)
+        )
+        // Aserción: Verificar que el texto del artista contiene "Ruben"
+        textView.check(matches(withText(containsString("ADELE"))))
     }
 
     private fun childAtPosition(

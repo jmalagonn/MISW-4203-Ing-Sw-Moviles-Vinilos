@@ -10,8 +10,6 @@ import org.junit.runners.Suite
     LoginFilterArtist::class,
     DetailArtistBackButtom::class,
     LoginViewArtistOffline::class,
-
-
     )
 
 class AllTestsSuiteHU03HU04
