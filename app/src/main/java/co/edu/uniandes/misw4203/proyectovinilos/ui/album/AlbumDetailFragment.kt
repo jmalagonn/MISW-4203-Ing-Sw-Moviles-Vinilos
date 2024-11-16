@@ -86,7 +86,7 @@ class AlbumDetailFragment : Fragment() {
         val date = releaseDate?.let { inputFormat.parse(it) }
         val formattedDate = date?.let { outputFormat.format(it) }
         binding.albumTitle.text = albumTitle
-        binding.releaseDate.text = "Lanzamiento $formattedDate"
+        binding.releaseDate.text = getString(R.string.release_date, formattedDate)
         binding.genre.text = albumGenre
         binding.recordLabel.text = albumRecordLabel
         binding.description.text = albumDescription

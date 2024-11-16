@@ -21,7 +21,8 @@ import kotlin.random.Random
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class AddTrackVisitor {
+class LoginViewCollectorDetail {
+
 
     @Rule
     @JvmField
@@ -33,7 +34,7 @@ class AddTrackVisitor {
     }
 
     @Test
-    fun addTrackVisitor() {
+    fun viewAlbumDetailVisitor() {
         val materialTextView = onView(
             allOf(
                 withId(R.id.guestButton),
@@ -42,21 +43,36 @@ class AddTrackVisitor {
         )
         materialTextView.perform(click())
 
-        // Selección aleatoria del índice del álbum entre 1 y 15
-        val randomAlbumPosition = Random.nextInt(1, 9)
+        // Acción para tocar el tab inferior 'navigation_collector'
+        val bottomNavigationItemView = onView(
+            allOf(
+                withId(R.id.navigation_collector),
+                isDisplayed()
+            )
+        )
+        bottomNavigationItemView.perform(click())
+
+        // Selección aleatoria del índice de la colección entre 1 y 2
+        val randomCollector = Random.nextInt(1, 2)
 
         val recyclerView = onView(
             allOf(
-                withId(R.id.albumsRv),
+                withId(R.id.collectorsRv),
                 isDisplayed()
             )
         )
         Thread.sleep(2000)
-        recyclerView.perform(actionOnItemAtPosition<RecyclerView.ViewHolder>(randomAlbumPosition, click()))
+        recyclerView.perform(actionOnItemAtPosition<RecyclerView.ViewHolder>(randomCollector, click()))
         Thread.sleep(2000)
 
-        // Verificar que el botón "Agregar Track" no sea visible en la pantalla
-        onView(withId(R.id.addTrackButton)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
+        // Verificar la existencia de los elementos del coleccionista
+        onView(withId(R.id.collectorName)).check(matches(isDisplayed()))
+        onView(withId(R.id.collectorTel)).check(matches(isDisplayed()))
+        onView(withId(R.id.collectorEmail)).check(matches(isDisplayed()))
+        onView(withId(R.id.collectorAvatar)).check(matches(isDisplayed()))
+
+        // Verificar la existencia de la tabla
+        onView(withId(R.id.favorite_performers_recycler_view)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
     }
 }

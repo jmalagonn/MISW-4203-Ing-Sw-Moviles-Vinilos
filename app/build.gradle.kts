@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application") version "8.6.0"
     id("org.jetbrains.kotlin.android") version "1.9.0"
-    id("com.google.devtools.ksp") version libs.versions.ksp.get()
+    id("com.google.devtools.ksp") version "1.9.10-1.0.13"
     id("kotlin-kapt")
 }
 
@@ -56,6 +56,7 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.espresso.contrib)
     implementation(libs.androidx.room.common)
+    implementation(libs.androidx.uiautomator)
     ksp(libs.ksp.glide)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

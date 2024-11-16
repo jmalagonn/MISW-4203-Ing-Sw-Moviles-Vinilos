@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -38,7 +37,7 @@ class AlbumFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentAlbumBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -82,20 +81,21 @@ class AlbumFragment : Fragment() {
         val activity = requireNotNull(this.activity) {
             "You can only access the viewModel after onActivityCreated()"
         }
-        viewModel = ViewModelProvider(this, AlbumViewModel.Factory(activity.application)).get(AlbumViewModel::class.java)
-        viewModel.albums.observe(viewLifecycleOwner, Observer<List<Album>> { albums ->
+        viewModel = ViewModelProvider(this, AlbumViewModel.Factory(activity.application))[AlbumViewModel::class.java]
+        viewModel.albums.observe(viewLifecycleOwner) { albums ->
             Log.d("AlbumFragment", "Received albums: ${albums.size}")
             albumList = albums
             viewModelAdapter?.albums = albums
             binding.progressBar.visibility = View.GONE
 
             // Show Counter albums
-            binding.totalAlbumsTextView.text = "Total de álbumes: ${albums.size}"
-        })
+            binding.totalAlbumsTextView.text =
+                getString(R.string.total_albums_counter, albums.size.toString())
+        }
 
-        viewModel.eventNetworkError.observe(viewLifecycleOwner, Observer<Boolean> { isNetworkError ->
+        viewModel.eventNetworkError.observe(viewLifecycleOwner) { isNetworkError ->
             if (isNetworkError) onNetworkError()
-        })
+        }
     }
 
     override fun onDestroyView() {
@@ -118,7 +118,7 @@ class AlbumFragment : Fragment() {
         }
 
         viewModelAdapter?.albums = filteredList
-        binding.totalAlbumsTextView.text = "Total de álbumes: ${filteredList.size}"
+        binding.totalAlbumsTextView.text = getString(R.string.total_albums_counter, filteredList.size.toString())
     }
 
     private fun showAlbumDetail(album: Album) {

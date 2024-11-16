@@ -11,18 +11,18 @@ import co.edu.uniandes.misw4203.proyectovinilos.models.Track
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
-import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONArray
+import org.json.JSONObject
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-class NetworkServiceAdapter constructor(context: Context) {
+class NetworkServiceAdapter(context: Context) {
     companion object{
         const val BASE_URL= "https://backvynils-q6yc.onrender.com/"
-        var instance: NetworkServiceAdapter? = null
+        private var instance: NetworkServiceAdapter? = null
         fun getInstance(context: Context) =
             instance ?: synchronized(this) {
                 instance ?: NetworkServiceAdapter(context).also {
@@ -37,14 +37,15 @@ class NetworkServiceAdapter constructor(context: Context) {
     }
 
     //Setting coroutine
+    //Optimization
     suspend fun getAlbums()= suspendCoroutine<List<Album>>{ cont->
         val list = mutableListOf<Album>()
         requestQueue.add(getRequest("albums",
             { response ->
                 val resp = JSONArray(response)
-
+                var item: JSONObject? = null
                 for (i in 0 until resp.length()) {
-                    val item = resp.getJSONObject(i)
+                    item = resp.getJSONObject(i)
                     val tracks = if (item.has("tracks")) item.getJSONArray("tracks").toTrackList() else emptyList()
                     val performers = if (item.has("performers")) item.getJSONArray("performers").toPerformerList() else emptyList()
                     val comments = if (item.has("comments")) item.getJSONArray("comments").toCommentList() else emptyList()
@@ -64,18 +65,20 @@ class NetworkServiceAdapter constructor(context: Context) {
                 }
                 cont.resume(list)
 
-            },Response.ErrorListener {
+            }, {
                 cont.resumeWithException(it)
             }))
     }
 
+    //Optimization
     suspend fun getArtists() = suspendCoroutine<List<Artist>>{ cont->
         val list = mutableListOf<Artist>()
         requestQueue.add(getRequest("musicians",
         { response ->
             val resp = JSONArray(response)
+            var item: JSONObject? = null
             for (i in 0 until resp.length()) {
-                val item = resp.getJSONObject(i)
+                item = resp.getJSONObject(i)
                 val albums = if (item.has("albums")) item.getJSONArray("albums").toAlbumList() else emptyList()
 
                 list.add(i,
@@ -91,18 +94,20 @@ class NetworkServiceAdapter constructor(context: Context) {
             }
             cont.resume(list)
 
-        },Response.ErrorListener {
+        }, {
                 cont.resumeWithException(it)
             }))
     }
 
+    //Optimization
     suspend fun getCollectors() = suspendCoroutine<List<Collector>>{ cont->
         val list = mutableListOf<Collector>()
         requestQueue.add(getRequest("collectors",
             { response ->
                 val resp = JSONArray(response)
+                var item: JSONObject? = null
                 for (i in 0 until resp.length()) {
-                    val item = resp.getJSONObject(i)
+                    item = resp.getJSONObject(i)
                     val collectorAlbums = if (item.has("collectorAlbums")) item.getJSONArray("collectorAlbums").toCollectorAlbumsList() else emptyList()
                     val favoritePerformers = if (item.has("favoritePerformers")) item.getJSONArray("favoritePerformers").toPerformerList() else emptyList()
                     val comments = if (item.has("comments")) item.getJSONArray("comments").toCommentList() else emptyList()
@@ -119,7 +124,7 @@ class NetworkServiceAdapter constructor(context: Context) {
                 }
                 cont.resume(list)
 
-            },Response.ErrorListener {
+            }, {
                 cont.resumeWithException(it)
             }))
     }
