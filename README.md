@@ -16,6 +16,7 @@ Repositorio del proyecto Vinilos de la materia MISW-4203 de Ingeniería de Softw
 - **Min Android SDK** 21
 - **Gradle** 8.9 o superior
 - **Gradle Plugin** 8.6.0
+- **Java** JDK 17
 - Emulador o dispositivo Android con **API 21 (Android 5.0)** o superior.
 
 ## Instalación
