@@ -1,5 +1,6 @@
 package co.edu.uniandes.misw4203.proyectovinilos.ui.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
@@ -14,6 +15,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 class AlbumsAdapter(private val onAlbumClick: (Album) -> Unit) : RecyclerView.Adapter<AlbumsAdapter.AlbumViewHolder>() {
 
     var albums :List<Album> = emptyList()
+        @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
             notifyDataSetChanged()

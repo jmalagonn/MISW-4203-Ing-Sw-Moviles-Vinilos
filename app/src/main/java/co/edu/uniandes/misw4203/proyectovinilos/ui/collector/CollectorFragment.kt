@@ -7,13 +7,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import co.edu.uniandes.misw4203.proyectovinilos.R
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import co.edu.uniandes.misw4203.proyectovinilos.R
 import co.edu.uniandes.misw4203.proyectovinilos.databinding.FragmentCollectorBinding
 import co.edu.uniandes.misw4203.proyectovinilos.models.Collector
 import co.edu.uniandes.misw4203.proyectovinilos.ui.adapters.CollectorsAdapter
@@ -36,7 +35,7 @@ class CollectorFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentCollectorBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -74,22 +73,22 @@ class CollectorFragment : Fragment() {
         val activity = requireNotNull(this.activity) {
             "You can only access the viewModel after onActivityCreated()"
         }
-        viewModel = ViewModelProvider(this, CollectorViewModel.Factory(activity.application))
-            .get(CollectorViewModel::class.java)
+        viewModel = ViewModelProvider(this, CollectorViewModel.Factory(activity.application))[CollectorViewModel::class.java]
 
-        viewModel.collectors.observe(viewLifecycleOwner, Observer<List<Collector>> { collectors ->
+        viewModel.collectors.observe(viewLifecycleOwner) { collectors ->
             Log.d("CollectorsFragment", "Received collectors: ${collectors.size}")
             collectorList = collectors
             viewModelAdapter?.collectors = collectors
             binding.progressBar.visibility = View.GONE
 
             // Show Counter collectors
-            binding.totalCollectorsTextView.text = "Total coleccionistas: ${collectors.size}"
-        })
+            binding.totalCollectorsTextView.text =
+                getString(R.string.total_collectors_counter, collectors.size.toString())
+        }
 
-        viewModel.eventNetworkError.observe(viewLifecycleOwner, Observer<Boolean> { isNetworkError ->
+        viewModel.eventNetworkError.observe(viewLifecycleOwner) { isNetworkError ->
             if (isNetworkError) onNetworkError()
-        })
+        }
     }
 
     override fun onDestroyView() {
@@ -112,7 +111,8 @@ class CollectorFragment : Fragment() {
         }
 
         viewModelAdapter?.collectors = filteredList
-        binding.totalCollectorsTextView.text = "Total coleccionistas: ${filteredList.size}"
+        binding.totalCollectorsTextView.text = getString(R.string.total_collectors_counter,filteredList.size.toString())
+
     }
 
     private fun showCollectorDetail(collector: Collector) {

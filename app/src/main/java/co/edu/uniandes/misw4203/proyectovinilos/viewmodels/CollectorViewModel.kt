@@ -22,11 +22,11 @@ class CollectorViewModel(application: Application) : AndroidViewModel(applicatio
     val collectors: LiveData<List<Collector>>
         get() = _collectors
 
-    private val _eventNetworkError = MutableLiveData<Boolean>(false)
+    private val _eventNetworkError = MutableLiveData(false)
     val eventNetworkError: LiveData<Boolean>
         get() = _eventNetworkError
 
-    private val _isNetworkErrorShown = MutableLiveData<Boolean>(false)
+    private val _isNetworkErrorShown = MutableLiveData(false)
     val isNetworkErrorShown: LiveData<Boolean>
         get() = _isNetworkErrorShown
 

@@ -16,8 +16,8 @@ import co.edu.uniandes.misw4203.proyectovinilos.database.VinylRoomDatabase
 class MainActivity : AppCompatActivity() {
 
     private lateinit var usernameEditText: TextInputEditText
-    private lateinit var passwordEditText: TextInputEditText;
-    private lateinit var loginButton: Button;
+    private lateinit var passwordEditText: TextInputEditText
+    private lateinit var loginButton: Button
     private lateinit var loginAltButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,10 +30,10 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        usernameEditText = findViewById<TextInputEditText>(R.id.userInputEditText)
-        passwordEditText = findViewById<TextInputEditText>(R.id.passwordInputEditText)
-        loginButton = findViewById<Button>(R.id.loginButton)
-        loginAltButton = findViewById<Button>(R.id.guestButton)
+        usernameEditText = findViewById(R.id.userInputEditText)
+        passwordEditText = findViewById(R.id.passwordInputEditText)
+        loginButton = findViewById(R.id.loginButton)
+        loginAltButton = findViewById(R.id.guestButton)
 
         loginButton.setOnClickListener {
             //goToAlbumsList(true)

@@ -1,15 +1,12 @@
 package co.edu.uniandes.misw4203.proyectovinilos
 
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.action.ViewActions.closeSoftKeyboard
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.rules.ActivityScenarioRule
@@ -55,7 +52,7 @@ class ViewDetailAlbumVisitor {
             )
         )
         Thread.sleep(2000)
-        recyclerView.perform(actionOnItemAtPosition<RecyclerView.ViewHolder>(randomAlbumPosition, click()))
+        recyclerView.perform(actionOnItemAtPosition<ViewHolder>(randomAlbumPosition, click()))
         Thread.sleep(2000)
 
         // Verificar la existencia de los elementos, album, fecha de lanzamiento, disquera, albumcover y descripcion

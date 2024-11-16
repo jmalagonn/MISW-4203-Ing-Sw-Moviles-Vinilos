@@ -2,22 +2,17 @@ package co.edu.uniandes.misw4203.proyectovinilos.ui.collector
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.edu.uniandes.misw4203.proyectovinilos.R
-import co.edu.uniandes.misw4203.proyectovinilos.databinding.FragmentAlbumDetailBinding
 import co.edu.uniandes.misw4203.proyectovinilos.databinding.FragmentCollectorDetailBinding
-import co.edu.uniandes.misw4203.proyectovinilos.models.Album
 import co.edu.uniandes.misw4203.proyectovinilos.models.Collector
-import co.edu.uniandes.misw4203.proyectovinilos.models.CollectorAlbum
-import co.edu.uniandes.misw4203.proyectovinilos.models.Comment
 import co.edu.uniandes.misw4203.proyectovinilos.models.Performer
 import co.edu.uniandes.misw4203.proyectovinilos.ui.adapters.FavoritePerformerAdapter
-import co.edu.uniandes.misw4203.proyectovinilos.ui.adapters.TrackAdapter
 import com.bumptech.glide.Glide
 
 

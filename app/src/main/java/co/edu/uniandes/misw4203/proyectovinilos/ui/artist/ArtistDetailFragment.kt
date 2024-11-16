@@ -29,10 +29,6 @@ class ArtistDetailFragment : Fragment() {
     private val outputFormat = SimpleDateFormat("dd MM yyyy", Locale.getDefault())
     private lateinit var artistAlbumAdapter: ArtistAlbumAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -70,7 +66,7 @@ class ArtistDetailFragment : Fragment() {
         val date = artistBirthDate?.let { inputFormat.parse(it) }
         val formattedDate = date?.let { outputFormat.format(it) }
         binding.artistName.text = artistName
-        binding.birthDate.text = "Fecha de nacimiento $formattedDate"
+        binding.birthDate.text = getString(R.string.artist_birth_date,formattedDate)
         binding.description.text = artistDescription
 
         // Load Image

@@ -32,7 +32,7 @@ class ArtistsRepository(private val application: Application, private val artist
     }
 
     // Get cached artists
-    private suspend fun getCachedArtists(): List<Artist> {
+    private fun getCachedArtists(): List<Artist> {
         val cached = artistsDao.getArtists()
         return if (cached.isEmpty()) {
             Log.d("ArtistsRepository", "No data in cache, returning empty list.")
