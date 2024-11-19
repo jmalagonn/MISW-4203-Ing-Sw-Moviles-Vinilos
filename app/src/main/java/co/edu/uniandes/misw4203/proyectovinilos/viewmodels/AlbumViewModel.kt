@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import co.edu.uniandes.misw4203.proyectovinilos.database.VinylRoomDatabase
 import co.edu.uniandes.misw4203.proyectovinilos.models.Album
+import co.edu.uniandes.misw4203.proyectovinilos.network.NetworkServiceAdapter
 import co.edu.uniandes.misw4203.proyectovinilos.repositories.AlbumsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -34,6 +35,11 @@ class AlbumViewModel(application: Application) :  AndroidViewModel(application) 
     val isNetworkErrorShown: LiveData<Boolean>
         get() = _isNetworkErrorShown
 
+    private val _isSuccess = MutableLiveData<Boolean>()
+    val isSuccess: LiveData<Boolean> get() = _isSuccess
+
+    private val networkServiceAdapter = NetworkServiceAdapter.getInstance(application.applicationContext)
+
     init {
         refreshDataFromNetwork()
     }
@@ -58,6 +64,23 @@ class AlbumViewModel(application: Application) :  AndroidViewModel(application) 
         _isNetworkErrorShown.value = true
     }
 
+    fun createAlbum(album: Album, onSuccess: () -> Unit, onError: (String) -> Unit) {
+        viewModelScope.launch {
+            val applicationContext = getApplication<Application>()
+            NetworkServiceAdapter.getInstance(applicationContext).createAlbum(
+                album = album,
+                onSuccess = {
+                    onSuccess()
+                },
+                onError = { errorMessage ->
+                    onError(errorMessage)
+                }
+            )
+        }
+    }
+
+
+
     class Factory(val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(AlbumViewModel::class.java)) {
@@ -67,4 +90,6 @@ class AlbumViewModel(application: Application) :  AndroidViewModel(application) 
             throw IllegalArgumentException("Unable to construct viewmodel")
         }
     }
+
+
 }

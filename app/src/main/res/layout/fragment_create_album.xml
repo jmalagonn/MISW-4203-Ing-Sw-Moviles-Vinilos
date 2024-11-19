@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <!-- ViewModel can be referenced here if needed -->
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:background="@color/background_color">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/albumNameInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nombre del álbum" />
+
+            <EditText
+                android:id="@+id/albumCoverInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="URL de la portada" />
+
+            <EditText
+                android:id="@+id/albumReleaseDateInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Fecha de lanzamiento (YYYY-MM-DD)" />
+
+            <EditText
+                android:id="@+id/albumDescriptionInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Descripción" />
+
+            <EditText
+                android:id="@+id/albumGenreInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Género" />
+
+            <EditText
+                android:id="@+id/albumRecordLabelInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Discográfica" />
+
+            <Button
+                android:id="@+id/saveButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Guardar" />
+        </LinearLayout>
+    </ScrollView>
+</layout>

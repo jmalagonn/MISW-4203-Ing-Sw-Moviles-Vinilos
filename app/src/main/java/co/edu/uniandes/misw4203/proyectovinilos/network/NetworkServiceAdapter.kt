@@ -1,6 +1,7 @@
 package co.edu.uniandes.misw4203.proyectovinilos.network
 
 import android.content.Context
+import android.util.Log
 import co.edu.uniandes.misw4203.proyectovinilos.models.Album
 import co.edu.uniandes.misw4203.proyectovinilos.models.Artist
 import co.edu.uniandes.misw4203.proyectovinilos.models.Collector
@@ -11,6 +12,7 @@ import co.edu.uniandes.misw4203.proyectovinilos.models.Track
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONArray
@@ -214,4 +216,34 @@ class NetworkServiceAdapter(context: Context) {
         return list
     }
 
+    fun createAlbum(
+        album: Album,
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    ) {
+        val jsonBody = JSONObject().apply {
+            put("name", album.name)
+            put("cover", album.cover)
+            put("releaseDate", album.releaseDate)
+            put("description", album.description)
+            put("genre", album.genre)
+            put("recordLabel", album.recordLabel)
+        }
+
+        Log.d("NetworkRequest", "Making POST request with body: $jsonBody")
+
+        val jsonRequest = JsonObjectRequest(
+            Request.Method.POST, BASE_URL+"albums", jsonBody,
+            {
+                onSuccess()
+            },
+            { error ->
+                val errorMessage = error.message ?: "Error desconocido"
+                Log.e("NetworkRequest", "Error: $errorMessage")
+                onError(errorMessage)
+            }
+        )
+
+        requestQueue.add(jsonRequest)
+    }
 }
