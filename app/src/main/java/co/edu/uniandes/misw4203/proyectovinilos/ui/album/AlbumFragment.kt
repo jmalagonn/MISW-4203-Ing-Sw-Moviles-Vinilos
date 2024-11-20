@@ -46,7 +46,10 @@ class AlbumFragment : Fragment() {
             val createAlbumFragment = CreateAlbumFragment()
 
             val transaction: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.albumContainer, createAlbumFragment)
+            val bundle = Bundle().apply {
+                putBoolean("isAdmin",isAdmin)
+            }
+            findNavController().navigate(R.id.createAlbumFragment,bundle)
             transaction.addToBackStack(null)
             transaction.commit()
         }

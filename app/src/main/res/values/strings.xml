@@ -36,5 +36,14 @@
     <string name="total_collectors_counter">Total de coleccionistas: %s</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="name_album_field">Nombre del álbum</string>
+    <string name="url_field">URL de la portada</string>
+    <string name="release_date_album_field">Fecha de lanzamiento (YYYY-MM-DD)</string>
+    <string name="description_album_field">Descripción</string>
+    <string name="genre_album_field">Género</string>
+    <string name="recordlabel_album_field">Discográfica</string>
+    <string name="save_album_button">Agregar</string>
+    <string name="title_create_album">Crear Álbum</string>
+    <string name="cancel_album_button">Cancelar</string>
 
 </resources>
