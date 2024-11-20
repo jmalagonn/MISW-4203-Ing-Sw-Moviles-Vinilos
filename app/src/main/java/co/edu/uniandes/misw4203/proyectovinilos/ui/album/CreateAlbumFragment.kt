@@ -7,6 +7,7 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -36,6 +37,13 @@ class CreateAlbumFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCreateAlbumBinding.inflate(inflater, container, false)
+
+        // Go back button
+        val cancelButton = binding.root.findViewById<Button>(R.id.cancel_album_button)
+        cancelButton.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+
         return binding.root
     }
 
