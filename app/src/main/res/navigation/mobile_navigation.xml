@@ -43,5 +43,10 @@
         android:name="co.edu.uniandes.misw4203.proyectovinilos.ui.artist.ArtistDetailFragment"
         tools:layout="@layout/fragment_artist_detail" />
 
+    <fragment
+        android:id="@+id/createAlbumFragment"
+        android:name="co.edu.uniandes.misw4203.proyectovinilos.ui.album.CreateAlbumFragment"
+        tools:layout="@layout/fragment_create_album" />
+
 
 </navigation>

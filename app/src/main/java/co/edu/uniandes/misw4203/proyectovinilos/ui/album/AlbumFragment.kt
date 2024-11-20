@@ -8,9 +8,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -39,6 +41,19 @@ class AlbumFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAlbumBinding.inflate(inflater, container, false)
+        val addAlbumButton: Button = binding.addAlbumButton
+        addAlbumButton.setOnClickListener {
+            val createAlbumFragment = CreateAlbumFragment()
+
+            val transaction: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+            val bundle = Bundle().apply {
+                putBoolean("isAdmin",isAdmin)
+            }
+            findNavController().navigate(R.id.createAlbumFragment,bundle)
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
+
         return binding.root
     }
 
