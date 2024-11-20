@@ -48,5 +48,9 @@
         android:name="co.edu.uniandes.misw4203.proyectovinilos.ui.album.CreateAlbumFragment"
         tools:layout="@layout/fragment_create_album" />
 
+    <fragment
+        android:id="@+id/addTrackFragment"
+        android:name="co.edu.uniandes.misw4203.proyectovinilos.ui.album.AddTrackFragment"
+        tools:layout="@layout/fragment_create_album" />
 
 </navigation>

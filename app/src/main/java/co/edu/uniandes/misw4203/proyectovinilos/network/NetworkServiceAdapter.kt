@@ -246,4 +246,37 @@ class NetworkServiceAdapter(context: Context) {
 
         requestQueue.add(jsonRequest)
     }
+
+    fun addTrackToAlbum(
+        albumId: Int,
+        track: Track,
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    ) {
+        val jsonBody = JSONObject().apply {
+            put("name", track.name)
+            put("duration", track.duration)
+        }
+
+        Log.d("NetworkRequest", "Making POST request with body: $jsonBody")
+
+        val jsonRequest = JsonObjectRequest(
+            Request.Method.POST,
+            BASE_URL + "albums/$albumId/tracks",
+            jsonBody,
+            { response ->
+                Log.d("NetworkRequest", "Track added successfully: $response")
+                onSuccess()
+            },
+            { error ->
+                val errorMessage = error.message ?: "Error desconocido"
+                Log.e("NetworkRequest", "Error: $errorMessage")
+                onError(errorMessage)
+            }
+        )
+
+        requestQueue.add(jsonRequest)
+    }
+
+
 }

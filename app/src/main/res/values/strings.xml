@@ -45,5 +45,8 @@
     <string name="save_album_button">Agregar</string>
     <string name="title_create_album">Crear Álbum</string>
     <string name="cancel_album_button">Cancelar</string>
+    <string name="duration_add_track">Duración (MM:ss)</string>
+    <string name="add_track_button">Agregar Track</string>
+    <string name="name_add_track">Nombre del track</string>
 
 </resources>

@@ -53,13 +53,27 @@ class CreateAlbumFragment : Fragment() {
         viewModel = ViewModelProvider(this, AlbumViewModel.Factory(requireActivity().application))
             .get(AlbumViewModel::class.java)
 
-        // Validación de formato de fecha para el campo albumReleaseDateInput
+        // Validate Date
         binding.albumReleaseDateInput.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 if (s != null && !isValidDateFormat(s.toString())) {
                     binding.albumReleaseDateInput.error = "Ingresa una fecha en formato yyyy-MM-dd."
                 } else {
                     binding.albumReleaseDateInput.error = null
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        //Validate URL
+        binding.albumCoverInput.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                if (s != null && !isValidImageUrl(s.toString())) {
+                    binding.albumCoverInput.error = "Ingresa una URL válida de imagen (jpg, jpeg, png, etc.)."
+                } else {
+                    binding.albumCoverInput.error = null
                 }
             }
 
@@ -105,7 +119,7 @@ class CreateAlbumFragment : Fragment() {
             onSuccess = {
                 Toast.makeText(requireContext(), "Álbum creado con éxito", Toast.LENGTH_SHORT).show()
                 val bundle = Bundle().apply {
-                    putBoolean("isAdmin",isAdmin)
+                    putBoolean("isAdmin", isAdmin)
                 }
                 findNavController().navigate(R.id.navigation_album, bundle)
             },
@@ -120,12 +134,10 @@ class CreateAlbumFragment : Fragment() {
         return regex.matches(date)
     }
 
-
     private fun isValidImageUrl(url: String): Boolean {
         val imageExtensions = listOf("jpg", "jpeg", "png", "gif", "bmp", "webp")
         return Patterns.WEB_URL.matcher(url).matches() && imageExtensions.any { url.endsWith(it, true) }
     }
-
 
     private fun convertDateToApiFormat(date: String): String {
         val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
