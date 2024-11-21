@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import co.edu.uniandes.misw4203.proyectovinilos.database.VinylRoomDatabase
 import co.edu.uniandes.misw4203.proyectovinilos.models.Album
+import co.edu.uniandes.misw4203.proyectovinilos.models.Track
 import co.edu.uniandes.misw4203.proyectovinilos.network.NetworkServiceAdapter
 import co.edu.uniandes.misw4203.proyectovinilos.repositories.AlbumsRepository
 import kotlinx.coroutines.Dispatchers
@@ -78,6 +79,27 @@ class AlbumViewModel(application: Application) :  AndroidViewModel(application) 
             )
         }
     }
+
+    fun addTrackToAlbum(albumId: Int, track: Track, onSuccess: () -> Unit, onError: (String) -> Unit) {
+        viewModelScope.launch {
+            try {
+                networkServiceAdapter.addTrackToAlbum(
+                    albumId = albumId,
+                    track = track,
+                    onSuccess = {
+                        onSuccess()
+                        refreshDataFromNetwork()
+                    },
+                    onError = { errorMessage ->
+                        onError(errorMessage)
+                    }
+                )
+            } catch (e: Exception) {
+                onError(e.message ?: "Unknown error occurred")
+            }
+        }
+    }
+
 
 
 
