@@ -233,8 +233,59 @@ class NetworkServiceAdapter(context: Context) {
         Log.d("NetworkRequest", "Making POST request with body: $jsonBody")
 
         val jsonRequest = JsonObjectRequest(
-            Request.Method.POST, BASE_URL+"albums", jsonBody,
-            {
+            Request.Method.POST, BASE_URL + "albums", jsonBody,
+            { response ->
+                onSuccess()
+            },
+            { error ->
+                val errorMessage: String = when {
+                    error.networkResponse != null -> {
+                        val statusCode = error.networkResponse.statusCode
+                        val responseBody = String(error.networkResponse.data)
+
+
+                        Log.e("NetworkRequest", "Error $statusCode: $responseBody")
+
+                        if (statusCode == 400) {
+                            "Error 400: $responseBody" // Esto depende de cómo el servidor envíe el error.
+                        } else {
+                            "Error $statusCode: $responseBody"
+                        }
+                    }
+                    else -> {
+                        val errorMessage = "Error desconocido"
+                        Log.e("NetworkRequest", errorMessage)
+                        errorMessage
+                    }
+                }
+
+                onError(errorMessage)
+            }
+        )
+
+        requestQueue.add(jsonRequest)
+    }
+
+
+    fun addTrackToAlbum(
+        albumId: Int,
+        track: Track,
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    ) {
+        val jsonBody = JSONObject().apply {
+            put("name", track.name)
+            put("duration", track.duration)
+        }
+
+        Log.d("NetworkRequest", "Making POST request with body: $jsonBody")
+
+        val jsonRequest = JsonObjectRequest(
+            Request.Method.POST,
+            BASE_URL + "albums/$albumId/tracks",
+            jsonBody,
+            { response ->
+                Log.d("NetworkRequest", "Track added successfully: $response")
                 onSuccess()
             },
             { error ->
@@ -246,4 +297,6 @@ class NetworkServiceAdapter(context: Context) {
 
         requestQueue.add(jsonRequest)
     }
+
+
 }

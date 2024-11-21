@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.edu.uniandes.misw4203.proyectovinilos.R
 import co.edu.uniandes.misw4203.proyectovinilos.databinding.FragmentAlbumDetailBinding
@@ -16,17 +18,17 @@ import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-
 class AlbumDetailFragment : Fragment() {
     private var _binding: FragmentAlbumDetailBinding? = null
     private val binding get() = _binding!!
     private var releaseDate: String? = null
+    private var albumId: Int? = null
     private var albumTitle: String? = null
     private var albumGenre: String? = null
     private var albumCover: String? = null
     private var albumRecordLabel: String? = null
     private var albumDescription: String? = null
-    private var tracks: List<Track>? = null
+    private var tracks: MutableList<Track> = mutableListOf()
     private val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
     private val outputFormat = SimpleDateFormat("dd MM yyyy", Locale.getDefault())
     private lateinit var trackAdapter: TrackAdapter
@@ -43,20 +45,19 @@ class AlbumDetailFragment : Fragment() {
     ): View {
         _binding = FragmentAlbumDetailBinding.inflate(inflater, container, false)
         val view = binding.root
-        // Get Attributes from bundle
 
         val album = arguments?.getSerializable("album") as? Album
         album?.let {
+            albumId = it.albumId
             albumTitle = it.name
             albumCover = it.cover
             releaseDate = it.releaseDate
             albumGenre = it.genre
-            tracks = it.tracks
+            tracks.addAll(it.tracks)
             albumRecordLabel = it.recordLabel
             albumDescription = it.description
         }
 
-        // Hide option to add button if not admin
         val addAlbumButton = binding.addTrackButton
         if (isAdmin) {
             addAlbumButton.visibility = View.VISIBLE
@@ -66,17 +67,26 @@ class AlbumDetailFragment : Fragment() {
 
         bindAlbumDetails()
 
-        // Config Recycler view
-        tracks?.let {
-            trackAdapter = TrackAdapter(it)
-            binding.trackRecyclerView.layoutManager = LinearLayoutManager(context)
-            binding.trackRecyclerView.adapter = trackAdapter
-        }
+        trackAdapter = TrackAdapter(tracks)
+        binding.trackRecyclerView.layoutManager = LinearLayoutManager(context)
+        binding.trackRecyclerView.adapter = trackAdapter
 
-        // Go back button
         val goBackButton = view.findViewById<Button>(R.id.goBack)
         goBackButton.setOnClickListener {
             requireActivity().onBackPressed()
+        }
+
+        val addTrackButton: Button = binding.addTrackButton
+        val bundle = Bundle().apply {
+            putBoolean("isAdmin", isAdmin)
+            putInt("albumId", albumId!!)
+            putSerializable("album",album)
+        }
+        addTrackButton.setOnClickListener {
+            val transaction: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+            findNavController().navigate(R.id.addTrackFragment, bundle)
+            transaction.addToBackStack(null)
+            transaction.commit()
         }
 
         return view
@@ -91,7 +101,7 @@ class AlbumDetailFragment : Fragment() {
         binding.recordLabel.text = albumRecordLabel
         binding.description.text = albumDescription
 
-        // Load Image
+
         val coverUrl = albumCover
         Glide.with(this)
             .load(coverUrl)
