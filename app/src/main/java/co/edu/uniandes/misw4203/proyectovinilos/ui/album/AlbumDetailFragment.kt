@@ -77,12 +77,13 @@ class AlbumDetailFragment : Fragment() {
         }
 
         val addTrackButton: Button = binding.addTrackButton
+        val bundle = Bundle().apply {
+            putBoolean("isAdmin", isAdmin)
+            putInt("albumId", albumId!!)
+            putSerializable("album",album)
+        }
         addTrackButton.setOnClickListener {
             val transaction: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
-            val bundle = Bundle().apply {
-                putBoolean("isAdmin", isAdmin)
-                putInt("albumId", albumId!!)
-            }
             findNavController().navigate(R.id.addTrackFragment, bundle)
             transaction.addToBackStack(null)
             transaction.commit()

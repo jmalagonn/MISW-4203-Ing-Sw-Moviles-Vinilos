@@ -48,5 +48,6 @@
     <string name="duration_add_track">Duración (MM:ss)</string>
     <string name="add_track_button">Agregar Track</string>
     <string name="name_add_track">Nombre del track</string>
+    <string name="add_track_album">Agregar Track</string>
 
 </resources>

@@ -39,7 +39,7 @@ class CreateAlbumFragment : Fragment() {
         _binding = FragmentCreateAlbumBinding.inflate(inflater, container, false)
 
         // Go back button
-        val cancelButton = binding.root.findViewById<Button>(R.id.cancel_album_button)
+        val cancelButton = binding.cancelAlbumButton
         cancelButton.setOnClickListener {
             requireActivity().onBackPressed()
         }

@@ -27,7 +27,8 @@ class BottomBarActivity : AppCompatActivity() {
 
         // Ocultar BottomNavigationView en fragmentos de detalle
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            val hiddenDestinations = listOf(R.id.albumDetailFragment, R.id.artistDetailFragment, R.id.collectorDetailFragment, R.id.createAlbumFragment)
+            val hiddenDestinations = listOf(R.id.albumDetailFragment, R.id.artistDetailFragment,
+                R.id.collectorDetailFragment, R.id.createAlbumFragment, R.id.addTrackFragment)
             navView.visibility = if (destination.id in hiddenDestinations) View.GONE else View.VISIBLE
         }
 

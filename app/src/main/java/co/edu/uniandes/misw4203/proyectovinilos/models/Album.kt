@@ -14,7 +14,7 @@ data class Album(
     val description: String,
     val genre: String,
     val recordLabel: String,
-    val tracks: List<Track> = emptyList(),
+    var tracks: List<Track> = emptyList(),
     val performers: List<Performer> = emptyList(),
     val comments: List<Comment> = emptyList()
 ): Serializable
