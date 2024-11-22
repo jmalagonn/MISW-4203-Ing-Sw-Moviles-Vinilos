@@ -3,16 +3,17 @@ package co.edu.uniandes.misw4203.proyectovinilos
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.closeSoftKeyboard
 import androidx.test.espresso.action.ViewActions.replaceText
 import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withClassName
 import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.espresso.matcher.ViewMatchers.withParent
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -22,21 +23,21 @@ import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.TypeSafeMatcher
-import org.hamcrest.core.IsInstanceOf
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.random.Random
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class CreateAlbumStructureForm {
+class CreateTrackStructureForm {
 
     @Rule
     @JvmField
     var mActivityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun createAlbumStructureForm() {
+    fun createTrackStructureForm() {
         Thread.sleep(500)
 
         val textInputEditText = onView(
@@ -104,79 +105,53 @@ class CreateAlbumStructureForm {
 
         Thread.sleep(700)
 
+    // Selección aleatoria del índice del álbum entre 1 y 9
+        val randomAlbumPosition = Random.nextInt(1, 9)
+
+        val recyclerView = onView(
+            allOf(
+                withId(R.id.albumsRv),
+                isDisplayed()
+            )
+        )
+        Thread.sleep(1000)
+        recyclerView.perform(actionOnItemAtPosition<RecyclerView.ViewHolder>(randomAlbumPosition, click()))
+
+        Thread.sleep(1000)
+
         val materialButton2 = onView(
             allOf(
-                withId(R.id.addAlbumButton), withText("+ AGREGAR ÁLBUM"),
+                withId(R.id.addTrackButton), withText("+ AGREGAR TRACK"),
                 childAtPosition(
                     childAtPosition(
-                        withClassName(`is`("android.widget.ScrollView")),
-                        0
+                        withClassName(`is`("android.widget.LinearLayout")),
+                        5
                     ),
-                    3
+                    2
                 )
             )
         )
         materialButton2.perform(scrollTo(), click())
 
-        // Validar existencia de campo Album Name
-        onView(withId(R.id.albumNameInput))
+        // Validar existencia de campo Track Name
+        onView(withId(R.id.trackNameEditText))
             .perform(scrollTo(), click())
             .perform(closeSoftKeyboard())
             .check(matches(isDisplayed()))
 
-
-        // Validar existencia de campo Album Cover
-        onView(withId(R.id.albumCoverInput))
-            .perform(scrollTo(), click())
-            .perform(closeSoftKeyboard())
-            .check(matches(isDisplayed()))
-
-
-        // Validar existencia de campo Album Release Date
-        onView(withId(R.id.albumReleaseDateInput))
-            .perform(scrollTo(), click())
-            .perform(closeSoftKeyboard())
-            .check(matches(isDisplayed()))
-
-
-        // Validar existencia de campo Album Description
-        onView(withId(R.id.albumDescriptionInput))
-            .perform(scrollTo(), click())
-            .perform(closeSoftKeyboard())
-            .check(matches(isDisplayed()))
-
-
-        // Validar existencia de campo Album Genre
-        onView(withId(R.id.albumGenreInput))
-            .perform(scrollTo(), click())
-            .perform(closeSoftKeyboard())
-            .check(matches(isDisplayed()))
-
-        // Validar existencia de campo Album Record Label
-        onView(withId(R.id.albumRecordLabelInput))
+        // Validar existencia de campo Track Duration
+        onView(withId(R.id.trackDurationEditText))
             .perform(scrollTo(), click())
             .perform(closeSoftKeyboard())
             .check(matches(isDisplayed()))
 
         // Validar existencia del boton cancelar
-        val button = onView(
-            allOf(
-                withId(R.id.cancel_album_button), withText("Cancelar"),
-                withParent(withParent(IsInstanceOf.instanceOf(android.widget.LinearLayout::class.java))),
-                isDisplayed()
-            )
-        )
-        button.check(matches(isDisplayed()))
+        onView(withId(R.id.cancel_track_button))
+            .check(matches(isDisplayed()))
 
-        // Validar existencia del boton Agregar
-        val button2 = onView(
-            allOf(
-                withId(R.id.saveButton), withText("Agregar"),
-                withParent(withParent(IsInstanceOf.instanceOf(android.widget.LinearLayout::class.java))),
-                isDisplayed()
-            )
-        )
-        button2.check(matches(isDisplayed()))
+        // Validar existencia del boton agregar
+        onView(withId(R.id.addTrackButton))
+            .check(matches(isDisplayed()))
     }
 
     private fun childAtPosition(

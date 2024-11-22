@@ -1,6 +1,8 @@
 package co.edu.uniandes.misw4203.proyectovinilos
 
 
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
@@ -8,6 +10,7 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.closeSoftKeyboard
 import androidx.test.espresso.action.ViewActions.replaceText
 import androidx.test.espresso.action.ViewActions.scrollTo
+import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withClassName
@@ -22,21 +25,37 @@ import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.TypeSafeMatcher
-import org.hamcrest.core.IsInstanceOf
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.random.Random
+import com.github.javafaker.Faker
+import org.hamcrest.CoreMatchers.containsString
+import org.hamcrest.core.IsInstanceOf
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class CreateAlbumStructureForm {
+class CreateAlbumSussesful {
 
     @Rule
     @JvmField
     var mActivityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun createAlbumStructureForm() {
+    fun createAlbumSussesful() {
+
+        val faker = Faker()
+        val albumName = faker.book().title()
+        val albumDescription = faker.lorem().paragraph().take(25)
+
+        // Listas de valores para género y disquera
+        val genres = listOf("Classical", "Salsa", "Rock", "Folk")
+        val recordLabels = listOf("Sony Music", "EMI", "Discos Fuentes", "Elektra", "Fania Records")
+
+        // Seleccionar valores dinámicos de las listas
+        val selectedGenre = genres[Random.nextInt(genres.size)]
+        val selectedRecordLabel = recordLabels[Random.nextInt(recordLabels.size)]
+
         Thread.sleep(500)
 
         val textInputEditText = onView(
@@ -118,65 +137,63 @@ class CreateAlbumStructureForm {
         )
         materialButton2.perform(scrollTo(), click())
 
-        // Validar existencia de campo Album Name
         onView(withId(R.id.albumNameInput))
             .perform(scrollTo(), click())
-            .perform(closeSoftKeyboard())
-            .check(matches(isDisplayed()))
+            .perform(typeText(albumName), closeSoftKeyboard())
 
-
-        // Validar existencia de campo Album Cover
         onView(withId(R.id.albumCoverInput))
             .perform(scrollTo(), click())
-            .perform(closeSoftKeyboard())
-            .check(matches(isDisplayed()))
+            .perform(typeText("https://i.pinimg.com/564x/aa/5f/ed/aa5fed7fac61cc8f41d1e79db917a7cd.jpg"), closeSoftKeyboard())
 
-
-        // Validar existencia de campo Album Release Date
         onView(withId(R.id.albumReleaseDateInput))
             .perform(scrollTo(), click())
-            .perform(closeSoftKeyboard())
-            .check(matches(isDisplayed()))
+            .perform(typeText("1984-08-01"), closeSoftKeyboard())
 
-
-        // Validar existencia de campo Album Description
         onView(withId(R.id.albumDescriptionInput))
             .perform(scrollTo(), click())
-            .perform(closeSoftKeyboard())
-            .check(matches(isDisplayed()))
+            .perform(typeText(albumDescription), closeSoftKeyboard())
 
-
-        // Validar existencia de campo Album Genre
         onView(withId(R.id.albumGenreInput))
             .perform(scrollTo(), click())
-            .perform(closeSoftKeyboard())
-            .check(matches(isDisplayed()))
+            .perform(typeText(selectedGenre), closeSoftKeyboard())
 
-        // Validar existencia de campo Album Record Label
         onView(withId(R.id.albumRecordLabelInput))
             .perform(scrollTo(), click())
-            .perform(closeSoftKeyboard())
+            .perform(typeText(selectedRecordLabel), closeSoftKeyboard())
+
+        Thread.sleep(1000)
+
+        onView(withId(R.id.saveButton))
             .check(matches(isDisplayed()))
+            .perform(click())
 
-        // Validar existencia del boton cancelar
-        val button = onView(
+        val appCompatEditText = onView(
             allOf(
-                withId(R.id.cancel_album_button), withText("Cancelar"),
-                withParent(withParent(IsInstanceOf.instanceOf(android.widget.LinearLayout::class.java))),
-                isDisplayed()
+                withId(R.id.searchAlbumEditText),
+                childAtPosition(
+                    childAtPosition(
+                        withClassName(`is`("android.widget.ScrollView")),
+                        0
+                    ),
+                    2
+                )
             )
         )
-        button.check(matches(isDisplayed()))
+        Thread.sleep(1000)
+        appCompatEditText.perform(scrollTo(), replaceText(albumName), closeSoftKeyboard())
+        Thread.sleep(1000)
 
-        // Validar existencia del boton Agregar
-        val button2 = onView(
-            allOf(
-                withId(R.id.saveButton), withText("Agregar"),
-                withParent(withParent(IsInstanceOf.instanceOf(android.widget.LinearLayout::class.java))),
-                isDisplayed()
+        Handler(Looper.getMainLooper()).postDelayed({
+            val textView = onView(
+                allOf(
+                    withId(R.id.albumName),
+                    withParent(withParent(IsInstanceOf.instanceOf(androidx.cardview.widget.CardView::class.java))),
+                    isDisplayed()
+                )
             )
-        )
-        button2.check(matches(isDisplayed()))
+            // Aserción: Verificar que el texto del álbum contiene albumName
+            textView.check(matches(withText(containsString(albumName))))
+        },3000)
     }
 
     private fun childAtPosition(
