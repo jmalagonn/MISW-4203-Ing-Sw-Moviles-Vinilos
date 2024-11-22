@@ -78,4 +78,5 @@ dependencies {
     ksp(libs.roomCompiler)
     androidTestImplementation(libs.roomTesting)
     implementation(libs.gson)
+    implementation(libs.faker)
 }

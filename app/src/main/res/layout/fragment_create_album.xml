@@ -151,22 +151,22 @@
             <LinearLayout
                 style="?android:attr/buttonBarStyle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
+                android:layout_height="103dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/cancel_album_button"
+                    style="@style/ButtonAdd"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginTop="24dp"
+                    android:layout_weight="1"
+                    android:text="@string/cancel_album_button"
                     app:icon="@android:drawable/ic_menu_revert"
                     app:iconGravity="textStart"
-                    app:iconTint="@color/black"
-                    android:text="@string/cancel_album_button"
-                    style="@style/ButtonAdd"/>
+                    app:iconTint="@color/black" />
 
                 <Space
                     android:layout_width="16dp"
@@ -174,16 +174,15 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/saveButton"
+                    style="@style/ButtonStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginTop="24dp"
+                    android:layout_weight="1"
+                    android:text="@string/save_album_button"
                     app:icon="@android:drawable/ic_menu_add"
                     app:iconGravity="textStart"
-                    app:iconTint="@color/orange"
-                    android:text="@string/save_album_button"
-                    style="@style/ButtonStyle"/>
-
+                    app:iconTint="@color/orange" />
 
 
             </LinearLayout>
