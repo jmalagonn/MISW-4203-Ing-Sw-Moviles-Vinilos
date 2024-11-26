@@ -50,5 +50,7 @@
     <string name="name_add_track">Nombre del track</string>
     <string name="add_track_album">Agregar Track</string>
     <string name="title_add_track_album">Agregar Track</string>
+    <string name="title_add_album_artist">ASOCIAR ÁLBUM A ARTISTA</string>
+    <string name="button_add_album_artist">ASOCIAR ÁLBUM</string>
 
 </resources>

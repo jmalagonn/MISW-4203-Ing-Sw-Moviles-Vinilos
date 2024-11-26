@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.fragment.app.FragmentTransaction
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.edu.uniandes.misw4203.proyectovinilos.R
 import co.edu.uniandes.misw4203.proyectovinilos.databinding.FragmentArtistDetailBinding
@@ -28,6 +30,13 @@ class ArtistDetailFragment : Fragment() {
     private val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
     private val outputFormat = SimpleDateFormat("dd MM yyyy", Locale.getDefault())
     private lateinit var artistAlbumAdapter: ArtistAlbumAdapter
+    private var isAdmin: Boolean = false
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        isAdmin = arguments?.getBoolean("isAdmin", false) ?: false
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +44,14 @@ class ArtistDetailFragment : Fragment() {
     ): View {
         _binding = FragmentArtistDetailBinding.inflate(inflater, container, false)
         val view = binding.root
+
+        val addAlbumButton = binding.addAlbumButton
+        if (isAdmin) {
+            addAlbumButton.visibility = View.VISIBLE
+        } else {
+            addAlbumButton.visibility = View.GONE
+        }
+
         // Get Attributes from bundle
 
         val artist = arguments?.getSerializable("artist") as? Artist
@@ -59,6 +76,19 @@ class ArtistDetailFragment : Fragment() {
         goBackButton.setOnClickListener {
             requireActivity().onBackPressed()
         }
+
+        //add album artist
+        val addAlbumArtistButton: Button = binding.addAlbumButton
+        val bundle = Bundle().apply {
+            putBoolean("isAdmin", isAdmin)
+        }
+        addAlbumArtistButton.setOnClickListener {
+            val transaction: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+            findNavController().navigate(R.id.addAlbumArtistFragment, bundle)
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
+
         return view
     }
 

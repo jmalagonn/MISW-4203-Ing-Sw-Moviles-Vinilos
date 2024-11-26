@@ -23,12 +23,29 @@ class BottomBarActivity : AppCompatActivity() {
         val bundle = Bundle().apply {
             putBoolean("isAdmin", isAdmin)
         }
-        navController.navigate(R.id.navigation_album, bundle)
+        navView.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_album -> {
+                    navController.navigate(R.id.navigation_album, bundle)
+                    true
+                }
+                R.id.navigation_artist -> {
+                    navController.navigate(R.id.navigation_artist, bundle)
+                    true
+                }
+                else -> false
+            }
+        }
+
+        if (savedInstanceState == null) {
+            navController.navigate(R.id.navigation_album, bundle)
+        }
 
         // Ocultar BottomNavigationView en fragmentos de detalle
         navController.addOnDestinationChangedListener { _, destination, _ ->
             val hiddenDestinations = listOf(R.id.albumDetailFragment, R.id.artistDetailFragment,
                 R.id.collectorDetailFragment, R.id.createAlbumFragment, R.id.addTrackFragment)
+
             navView.visibility = if (destination.id in hiddenDestinations) View.GONE else View.VISIBLE
         }
 

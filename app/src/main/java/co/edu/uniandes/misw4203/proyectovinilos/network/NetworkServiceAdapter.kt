@@ -298,5 +298,46 @@ class NetworkServiceAdapter(context: Context) {
         requestQueue.add(jsonRequest)
     }
 
+    fun associateAlbumToArtist(
+        albumId: Int,
+        artistId: Int,
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    ) {
+        val jsonBody = JSONObject().apply {
+            put("id", artistId)
+        }
+
+        Log.d("NetworkRequest", "Making POST request to associate album $albumId with artist $artistId")
+
+        val jsonRequest = JsonObjectRequest(
+            Request.Method.POST,
+            BASE_URL+"albums/$albumId/musicians/$artistId/",
+            null,
+            { response ->
+                Log.d("NetworkRequest", "Album associated successfully with artist: $response")
+                onSuccess()
+            },
+            { error ->
+                val errorMessage: String = when {
+                    error.networkResponse != null -> {
+                        val statusCode = error.networkResponse.statusCode
+                        val responseBody = String(error.networkResponse.data)
+                        Log.e("NetworkRequest", "Error $statusCode: $responseBody")
+                        "Error $statusCode: $responseBody"
+                    }
+                    else -> {
+                        val unknownError = "Error desconocido al asociar álbum con artista"
+                        Log.e("NetworkRequest", unknownError)
+                        unknownError
+                    }
+                }
+                onError(errorMessage)
+            }
+        )
+
+        requestQueue.add(jsonRequest)
+    }
+
 
 }
