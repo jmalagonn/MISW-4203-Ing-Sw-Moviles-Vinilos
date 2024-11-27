@@ -100,6 +100,9 @@ class AlbumViewModel(application: Application) :  AndroidViewModel(application) 
         }
     }
 
+    suspend fun fetchAlbums() {
+        _albums.value = albumsRepository.getCachedAlbums()
+    }
 
 
 

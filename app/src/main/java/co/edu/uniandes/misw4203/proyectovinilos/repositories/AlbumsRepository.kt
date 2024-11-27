@@ -32,14 +32,14 @@ class AlbumsRepository(private val application: Application, private val albumsD
     }
 
     // Get cached albums
-    private fun getCachedAlbums(): List<Album> {
-        val cached = albumsDao.getAlbums()
+    suspend fun getCachedAlbums(): List<Album> {
+        val cached = albumsDao.getAlbums() // Ensure this call is a suspend function
         return if (cached.isEmpty()) {
             Log.d("AlbumsRepository", "No data in cache, returning empty list.")
-            emptyList()  // return empty list
+            emptyList() // Return empty list
         } else {
             Log.d("AlbumsRepository", "Data found in cache, returning.")
-            cached  // return cached data
+            cached // Return cached data
         }
     }
 }

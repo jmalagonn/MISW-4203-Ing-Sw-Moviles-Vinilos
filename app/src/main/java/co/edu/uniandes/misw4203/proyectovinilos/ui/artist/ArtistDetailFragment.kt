@@ -23,6 +23,7 @@ class ArtistDetailFragment : Fragment() {
     private var _binding: FragmentArtistDetailBinding? = null
     private val binding get() = _binding!!
     private var artistName: String? = null
+    private var artistId: Int? = null
     private var artistBirthDate: String? = null
     private var artistImage: String? = null
     private var artistDescription: String? = null
@@ -56,6 +57,7 @@ class ArtistDetailFragment : Fragment() {
 
         val artist = arguments?.getSerializable("artist") as? Artist
         artist?.let {
+            artistId = it.id
             artistName = it.name
             artistImage = it.image
             artistBirthDate = it.birthDate
@@ -81,6 +83,7 @@ class ArtistDetailFragment : Fragment() {
         val addAlbumArtistButton: Button = binding.addAlbumButton
         val bundle = Bundle().apply {
             putBoolean("isAdmin", isAdmin)
+            putSerializable("artist", artist)
         }
         addAlbumArtistButton.setOnClickListener {
             val transaction: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
