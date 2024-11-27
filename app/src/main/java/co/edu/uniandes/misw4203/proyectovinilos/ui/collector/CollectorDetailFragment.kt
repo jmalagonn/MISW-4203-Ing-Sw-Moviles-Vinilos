@@ -53,9 +53,7 @@ class CollectorDetailFragment : Fragment() {
             collectorEmail = it.email
             favoritePerformers = it.favoritePerformers
 
-            Log.d("PRUEBA FP", it.favoritePerformers[0].image)
-
-            collectorAvatar = if (!favoritePerformers.isNullOrEmpty()) {
+            collectorAvatar = if (!favoritePerformers.isNullOrEmpty() && favoritePerformers!!.isNotEmpty()) {
                 it.favoritePerformers[0].image
             } else {
                 null
