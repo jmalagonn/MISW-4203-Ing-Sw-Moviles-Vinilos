@@ -35,25 +35,30 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Go Back Button -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/goBack"
-                android:layout_width="130dp"
-                android:layout_height="26dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/red_button_background"
-                android:fontFamily="@font/roboto_condensed_medium"
-                android:padding="0dp"
-                android:text="@string/go_back_button"
-                android:textSize="12sp"
-                style="@style/RedButtonStyle"/>
+            <LinearLayout android:layout_width="150dp"
+                android:layout_height="36dp"
+                android:orientation="vertical"
+                android:layout_marginTop="30sp">
+                <!-- Go Back Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/goBack"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/red_button_background"
+                    android:fontFamily="@font/roboto_condensed_medium"
+                    android:padding="0dp"
+                    android:text="@string/go_back_button"
+                    android:textSize="16sp"
+                    style="@style/RedButtonStyle"/>
+            </LinearLayout>
 
             <!-- Title -->
             <TextView
                 android:id="@+id/albumTitle"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/roboto_condensed_light"
@@ -144,20 +149,26 @@
                     android:textSize="14sp"
                     android:textColor="@color/white" />
 
-                <!-- Add Track Button -->
-                <Button
-                    android:id="@+id/addTrackButton"
-                    android:layout_width="152dp"
-                    android:layout_height="26dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:padding="0dp"
-                    android:background="@drawable/black_button_background"
-                    android:fontFamily="@font/roboto_condensed_medium"
-                    android:text="@string/add_track"
-                    android:textSize="12sp"
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="160dp"
+                    android:layout_height="34dp"
                     android:layout_gravity="start"
-                    style="?attr/buttonStyle"/>
+                    android:layout_marginStart="10dp">
+                <!-- Add Track Button -->
+                    <Button
+                        android:id="@+id/addTrackButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="0dp"
+                        android:padding="0dp"
+                        android:background="@drawable/black_button_background"
+                        android:fontFamily="@font/roboto_condensed_medium"
+                        android:text="@string/add_track"
+                        android:textSize="16sp"
+                        android:layout_gravity="start"
+                        style="?attr/buttonStyle"/>
+                </LinearLayout>
                 <!-- Divider -->
                 <View
                     android:id="@+id/horizontal_line"
