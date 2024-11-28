@@ -35,7 +35,6 @@
     <string name="total_artists_counter">Total de artistas: %s</string>
     <string name="total_collectors_counter">Total de coleccionistas: %s</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="name_album_field">Nombre del álbum</string>
     <string name="url_field">URL de la portada</string>
     <string name="release_date_album_field">Fecha de lanzamiento (YYYY-MM-DD)</string>
@@ -46,11 +45,10 @@
     <string name="title_create_album">Crear Álbum</string>
     <string name="cancel_album_button">Cancelar</string>
     <string name="duration_add_track">Duración (MM:ss)</string>
-    <string name="add_track_button">Agregar Track</string>
     <string name="name_add_track">Nombre del track</string>
     <string name="add_track_album">Agregar Track</string>
     <string name="title_add_track_album">Agregar Track</string>
     <string name="title_add_album_artist">ASOCIAR ÁLBUM A ARTISTA</string>
-    <string name="button_add_album_artist">ASOCIAR ÁLBUM</string>
+    <string name="button_add_album_artist">+ ASOCIAR ÁLBUM</string>
 
 </resources>

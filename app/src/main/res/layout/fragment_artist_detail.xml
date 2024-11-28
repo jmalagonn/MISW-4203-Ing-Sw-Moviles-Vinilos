@@ -129,7 +129,7 @@
                     android:padding="0dp"
                     android:background="@drawable/black_button_background"
                     android:fontFamily="@font/roboto_condensed_medium"
-                    android:text="+ ASOCIAR ÁLBUM"
+                    android:text="@string/button_add_album_artist"
                     android:textSize="12sp"
                     android:layout_gravity="start"
                     style="?attr/buttonStyle"/>

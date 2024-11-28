@@ -67,38 +67,42 @@ class AlbumViewModel(application: Application) :  AndroidViewModel(application) 
 
     fun createAlbum(album: Album, onSuccess: () -> Unit, onError: (String) -> Unit) {
         viewModelScope.launch {
-            val applicationContext = getApplication<Application>()
-            NetworkServiceAdapter.getInstance(applicationContext).createAlbum(
-                album = album,
-                onSuccess = {
+            try {
+                val applicationContext = getApplication<Application>()
+                val result = NetworkServiceAdapter.getInstance(applicationContext).createAlbum(album)
+
+                if (result.isSuccess) {
                     onSuccess()
-                },
-                onError = { errorMessage ->
+                } else {
+                    val errorMessage = result.exceptionOrNull()?.message ?: "Error desconocido"
                     onError(errorMessage)
                 }
-            )
+            } catch (e: Exception) {
+                val errorMessage = e.message ?: "Error desconocido"
+                onError(errorMessage)
+            }
         }
     }
+
 
     fun addTrackToAlbum(albumId: Int, track: Track, onSuccess: () -> Unit, onError: (String) -> Unit) {
         viewModelScope.launch {
             try {
-                networkServiceAdapter.addTrackToAlbum(
-                    albumId = albumId,
-                    track = track,
-                    onSuccess = {
-                        onSuccess()
-                        refreshDataFromNetwork()
-                    },
-                    onError = { errorMessage ->
-                        onError(errorMessage)
-                    }
-                )
+                val result = networkServiceAdapter.addTrackToAlbum(albumId, track)
+
+                if (result.isSuccess) {
+                    onSuccess()
+                    refreshDataFromNetwork()
+                } else {
+                    val errorMessage = result.exceptionOrNull()?.message ?: "Unknown error occurred"
+                    onError(errorMessage)
+                }
             } catch (e: Exception) {
                 onError(e.message ?: "Unknown error occurred")
             }
         }
     }
+
 
     suspend fun fetchAlbums() {
         _albums.value = albumsRepository.getCachedAlbums()

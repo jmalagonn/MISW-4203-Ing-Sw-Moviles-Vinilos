@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/background_color">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Vinyl image -->
     <ImageView
@@ -44,7 +43,7 @@
                 android:textAllCaps="true"
                 android:textSize="34sp"
                 android:text="@string/title_add_track_album"
-                android:layout_gravity="left"/>
+                android:layout_gravity="start"/>
 
             <!-- Track Name -->
             <com.google.android.material.textfield.TextInputLayout
