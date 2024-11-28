@@ -78,7 +78,7 @@
                 android:paddingEnd="1dp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
-                android:textSize="12sp"
+                android:textSize="18sp"
                 android:drawableStart="@drawable/ic_search_small"
                 android:drawablePadding="3dp"/>
 
