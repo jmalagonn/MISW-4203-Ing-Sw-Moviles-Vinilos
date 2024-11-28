@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/background_color">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Vinyl image -->
     <ImageView

@@ -31,6 +31,7 @@ class ArtistsRepository(private val application: Application, private val artist
         }
     }
 
+
     // Get cached artists
     private fun getCachedArtists(): List<Artist> {
         val cached = artistsDao.getArtists()

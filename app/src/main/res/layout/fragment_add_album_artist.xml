@@ -42,47 +42,28 @@
                 android:paddingEnd="1dp"
                 android:textAllCaps="true"
                 android:textSize="34sp"
-                android:text="@string/title_add_track_album"
+                android:text="@string/title_add_album_artist"
                 android:layout_gravity="start"/>
 
-            <!-- Track Name -->
-            <com.google.android.material.textfield.TextInputLayout
+            <!--Album Spinner -->
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="32dp"
-                android:layout_marginTop="24dp"
-                style="?attr/textInputOutlinedStyle">
+                android:layout_marginTop="20dp">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/trackNameEditText"
+                <!-- Spinner with Border -->
+                <Spinner
+                    android:id="@+id/spinnerAlbums"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/name_add_track"
-                    android:textColor="@color/white"
-                    android:maxLength="100"
-                    android:inputType="text"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:padding="8dp"
+                    android:layout_gravity="center_horizontal" />
 
-            <!-- Track Duration -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="32dp"
-                android:layout_marginTop="24dp"
-                style="?attr/textInputOutlinedStyle">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/trackDurationEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/duration_add_track"
-                    android:textColor="@color/white"
-                    android:inputType="time"/>
-            </com.google.android.material.textfield.TextInputLayout>
+            </FrameLayout>
 
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/addTrackButton"
+                android:id="@+id/addAlbumButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -90,7 +71,7 @@
                 app:icon="@android:drawable/ic_menu_add"
                 app:iconGravity="textStart"
                 app:iconTint="@color/orange"
-                android:text="@string/add_track_album"
+                android:text="@string/button_add_album_artist"
                 style="@style/ButtonStyle"/>
 
             <Space
@@ -98,7 +79,7 @@
                 android:layout_height="wrap_content" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/cancel_track_button"
+                android:id="@+id/cancel_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -108,9 +89,6 @@
                 app:iconTint="@color/black"
                 android:text="@string/cancel_album_button"
                 style="@style/ButtonAdd"/>
-
-
-
 
 
         </LinearLayout>

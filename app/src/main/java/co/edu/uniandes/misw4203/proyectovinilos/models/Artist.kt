@@ -13,7 +13,7 @@ data class Artist (
     val name: String,
     val image: String,
     val description: String,
-    val albums: List<Album> = emptyList(),
+    var albums: List<Album> = emptyList(),
     val birthDate: String,
     val performersPrizes: List<PerformerPrize> = emptyList()
 ): Serializable

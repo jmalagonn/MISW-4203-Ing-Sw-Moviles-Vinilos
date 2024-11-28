@@ -16,11 +16,7 @@ import co.edu.uniandes.misw4203.proyectovinilos.ui.adapters.FavoritePerformerAda
 import com.bumptech.glide.Glide
 
 
-/**
- * A simple [Fragment] subclass.
- * Use the [CollectorDetailFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class CollectorDetailFragment : Fragment() {
 
     private var _binding: FragmentCollectorDetailBinding? = null

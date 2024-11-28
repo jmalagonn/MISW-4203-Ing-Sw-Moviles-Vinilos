@@ -25,6 +25,12 @@ class ArtistFragment : Fragment() {
     private lateinit var _viewModel: ArtistViewModel
     private var _viewModelAdapter: ArtistsAdapter? = null
     private var _artistsList: List<Artist> = emptyList()
+    private var isAdmin: Boolean = false
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        isAdmin = arguments?.getBoolean("isAdmin", false) ?: false
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,14 +43,15 @@ class ArtistFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.progressBar.visibility = View.VISIBLE
         val gridLayoutManager = GridLayoutManager(context, 3)
         binding.artistRv.layoutManager = gridLayoutManager
 
-        _viewModelAdapter = ArtistsAdapter{ artist -> showArtistDetail(artist)}
+        _viewModelAdapter = ArtistsAdapter { artist -> showArtistDetail(artist) }
         binding.artistRv.adapter = _viewModelAdapter
 
-        // Search field
+        // Set up search field listener
         binding.searchArtistEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -61,17 +68,17 @@ class ArtistFragment : Fragment() {
         }
         _viewModel = ViewModelProvider(this)[ArtistViewModel::class.java]
 
+        // Observa el LiveData para obtener la lista de artistas
         _viewModel.artists.observe(viewLifecycleOwner) { artists ->
-            Log.d("ArtistFragment", "Received albums: ${artists.size}")
+            Log.d("ArtistFragment", "Received artists: ${artists.size}")
             _artistsList = artists
             _viewModelAdapter?.artists = artists
             binding.progressBar.visibility = View.GONE
-
-            // Show Counter albums
             binding.totalArtistsTextView.text =
                 getString(R.string.total_artists_counter, artists.size.toString())
         }
 
+        // Observa posibles errores de red
         _viewModel.eventNetworkError.observe(viewLifecycleOwner) { isNetworkError ->
             if (isNetworkError) onNetworkError()
         }
@@ -92,17 +99,18 @@ class ArtistFragment : Fragment() {
     private fun filterArtists(query: String) {
         Log.d("ArtistFragment", "Filtering artists with query: $query, total artists: ${_artistsList.size}")
 
-        val filteredList = _artistsList.filter { album ->
-            album.name.contains(query, ignoreCase = true)
+        val filteredList = _artistsList.filter { artist ->
+            artist.name.contains(query, ignoreCase = true)
         }
 
         _viewModelAdapter?.artists = filteredList
-        binding.totalArtistsTextView.text = getString(R.string.total_artists_counter,filteredList.size.toString())
+        binding.totalArtistsTextView.text = getString(R.string.total_artists_counter, filteredList.size.toString())
     }
 
     private fun showArtistDetail(artist: Artist) {
         val bundle = Bundle().apply {
             putSerializable("artist", artist)
+            putBoolean("isAdmin", isAdmin)
         }
         findNavController().navigate(R.id.artistDetailFragment, bundle)
     }
