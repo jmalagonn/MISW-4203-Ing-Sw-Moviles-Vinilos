@@ -35,7 +35,7 @@
             <TextView
                 android:id="@+id/collectorTitle"
                 android:layout_width="wrap_content"
-                android:layout_height="44dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="66dp"
                 android:layout_marginBottom="16dp"
                 android:fontFamily="@font/roboto_condensed_light"
@@ -50,7 +50,7 @@
             <TextView
                 android:id="@+id/totalCollectorsTextView"
                 android:layout_width="wrap_content"
-                android:layout_height="16dp"
+                android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="111dp"
                 android:layout_marginBottom="16dp"
@@ -65,8 +65,9 @@
             <!-- Campo de búsqueda para coleccionistas -->
             <EditText
                 android:id="@+id/searchCollectorEditText"
-                android:layout_width="152dp"
-                android:layout_height="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
                 android:layout_below="@id/totalCollectorsTextView"
                 android:layout_marginStart="10dp"
                 android:layout_marginBottom="16dp"
@@ -79,7 +80,6 @@
                 android:paddingEnd="1dp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
-                android:textSize="12sp"
                 android:drawableStart="@drawable/ic_search_small"
                 android:drawablePadding="3dp"/>
 

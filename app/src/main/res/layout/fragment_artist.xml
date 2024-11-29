@@ -33,8 +33,8 @@
             <!-- Title -->
             <TextView
                 android:id="@+id/artistTitle"
-                android:layout_width="152dp"
-                android:layout_height="44dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="66dp"
                 android:layout_marginBottom="16dp"
                 android:fontFamily="@font/roboto_condensed_light"
@@ -48,8 +48,8 @@
             <!-- Albums Counter Label -->
             <TextView
                 android:id="@+id/totalArtistsTextView"
-                android:layout_width="155dp"
-                android:layout_height="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="111dp"
                 android:layout_marginBottom="16dp"
@@ -64,8 +64,8 @@
             <!-- Search field -->
             <EditText
                 android:id="@+id/searchArtistEditText"
-                android:layout_width="152dp"
-                android:layout_height="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/totalArtistsTextView"
                 android:layout_marginStart="10dp"
                 android:layout_marginBottom="16dp"
@@ -78,7 +78,7 @@
                 android:paddingEnd="1dp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
-                android:textSize="12sp"
+                android:textSize="18sp"
                 android:drawableStart="@drawable/ic_search_small"
                 android:drawablePadding="3dp"/>
 

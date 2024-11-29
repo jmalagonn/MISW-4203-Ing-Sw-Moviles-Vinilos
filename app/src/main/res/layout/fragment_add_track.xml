@@ -33,7 +33,7 @@
             <!-- Title -->
             <TextView
                 android:id="@+id/createAlbumTitle"
-                android:layout_width="300dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/roboto_condensed_light"
