@@ -16,11 +16,7 @@ import co.edu.uniandes.misw4203.proyectovinilos.ui.adapters.FavoritePerformerAda
 import com.bumptech.glide.Glide
 
 
-/**
- * A simple [Fragment] subclass.
- * Use the [CollectorDetailFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class CollectorDetailFragment : Fragment() {
 
     private var _binding: FragmentCollectorDetailBinding? = null
@@ -53,9 +49,7 @@ class CollectorDetailFragment : Fragment() {
             collectorEmail = it.email
             favoritePerformers = it.favoritePerformers
 
-            Log.d("PRUEBA FP", it.favoritePerformers[0].image)
-
-            collectorAvatar = if (!favoritePerformers.isNullOrEmpty()) {
+            collectorAvatar = if (!favoritePerformers.isNullOrEmpty() && favoritePerformers!!.isNotEmpty()) {
                 it.favoritePerformers[0].image
             } else {
                 null
