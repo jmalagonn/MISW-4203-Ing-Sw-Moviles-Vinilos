@@ -132,6 +132,7 @@
                         android:layout_height="210dp"
                         android:scaleType="centerCrop"
                         android:src="@android:drawable/ic_menu_gallery"
+                        android:contentDescription="@string/portada_album"
                         tools:ignore="ContentDescription" />
                 </com.google.android.material.card.MaterialCardView>
 

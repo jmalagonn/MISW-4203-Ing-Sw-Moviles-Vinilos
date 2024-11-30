@@ -43,6 +43,7 @@
                 android:paddingStart="10dp"
                 android:paddingEnd="1dp"
                 android:text="@string/title_list_collectors"
+                android:contentDescription="@string/title_list_collectors"
                 android:textAllCaps="true"
                 android:textSize="34sp" />
 
@@ -75,6 +76,8 @@
                 android:background="@drawable/rounded_edit_text_background"
                 android:fontFamily="@font/roboto_condensed_light"
                 android:hint="@string/search_collector_hint"
+                android:importantForAccessibility="yes"
+                android:labelFor="@id/searchCollectorEditText"
                 android:inputType="text"
                 android:paddingStart="2dp"
                 android:paddingEnd="1dp"

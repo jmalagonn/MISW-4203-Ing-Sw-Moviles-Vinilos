@@ -119,6 +119,7 @@
                         android:layout_height="210dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_collector_image"
+                        android:contentDescription="@string/portada_coleccionista"
                         tools:ignore="ContentDescription" />
                 </com.google.android.material.card.MaterialCardView>
 

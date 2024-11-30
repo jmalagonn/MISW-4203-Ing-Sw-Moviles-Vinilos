@@ -41,7 +41,8 @@
                     android:layout_height="100dp"
                     android:scaleType="centerCrop"
                     android:src="@android:drawable/ic_menu_gallery"
-                    tools:ignore="ContentDescription" />
+                    tools:ignore="ContentDescription"
+                    android:contentDescription="@{album.name}"/>
 
                 <!-- Nombre del Álbum -->
                 <TextView
@@ -50,6 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="@{album.name}"
+                    android:contentDescription="@{album.name}"
                     android:textSize="14sp"
                     android:textAllCaps="true"
                     android:textStyle="bold|italic"
