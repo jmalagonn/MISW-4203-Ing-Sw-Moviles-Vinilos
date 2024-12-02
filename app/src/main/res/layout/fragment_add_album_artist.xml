@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Vinyl image -->
+    <ImageView
+        android:id="@+id/vinylImage"
+        android:layout_width="371dp"
+        android:layout_height="367dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="-159dp"
+        android:layout_marginEnd="-154dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/HU00_title"
+        android:scaleType="centerCrop"
+        android:src="@drawable/vinyl" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <!-- Title -->
+            <TextView
+                android:id="@+id/createAlbumTitle"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/roboto_condensed_light"
+                android:gravity="start"
+                android:paddingStart="10dp"
+                android:paddingEnd="1dp"
+                android:textAllCaps="true"
+                android:textSize="34sp"
+                android:text="@string/title_add_album_artist"
+                android:layout_gravity="start"/>
+
+            <!--Album Spinner -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <!-- Spinner with Border -->
+                <Spinner
+                    android:id="@+id/spinnerAlbums"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:layout_gravity="center_horizontal" />
+
+            </FrameLayout>
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/addAlbumButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="24dp"
+                app:icon="@android:drawable/ic_menu_add"
+                app:iconGravity="textStart"
+                app:iconTint="@color/orange"
+                android:text="@string/button_add_album_artist"
+                style="@style/ButtonStyle"/>
+
+            <Space
+                android:layout_width="16dp"
+                android:layout_height="wrap_content" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/cancel_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="24dp"
+                app:icon="@android:drawable/ic_menu_revert"
+                app:iconGravity="textStart"
+                app:iconTint="@color/black"
+                android:text="@string/cancel_album_button"
+                style="@style/ButtonAdd"/>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

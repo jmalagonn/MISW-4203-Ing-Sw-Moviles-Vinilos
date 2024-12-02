@@ -34,5 +34,24 @@
     <string name="artist_birth_date">Fecha de nacimiento %s</string>
     <string name="total_artists_counter">Total de artistas: %s</string>
     <string name="total_collectors_counter">Total de coleccionistas: %s</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="name_album_field">Nombre del álbum</string>
+    <string name="url_field">URL de la portada</string>
+    <string name="release_date_album_field">Fecha de lanzamiento (YYYY-MM-DD)</string>
+    <string name="description_album_field">Descripción</string>
+    <string name="genre_album_field">Género</string>
+    <string name="recordlabel_album_field">Discográfica</string>
+    <string name="save_album_button">Agregar</string>
+    <string name="title_create_album">Crear Álbum</string>
+    <string name="cancel_album_button">Cancelar</string>
+    <string name="duration_add_track">Duración (MM:ss)</string>
+    <string name="name_add_track">Nombre del track</string>
+    <string name="add_track_album">Crear Track</string>
+    <string name="title_add_track_album">Agregar Track</string>
+    <string name="title_add_album_artist">ASOCIAR ÁLBUM A ARTISTA</string>
+    <string name="button_add_album_artist">+ ASOCIAR ÁLBUM</string>
+    <string name="portada_album">Portada del álbum</string>
+    <string name="portada_artista">Portada del artista</string>
+    <string name="portada_coleccionista">Portada del coleccionista</string>
 
 </resources>

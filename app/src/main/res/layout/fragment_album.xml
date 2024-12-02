@@ -2,7 +2,8 @@
 
 <RelativeLayout android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/albumContainer" >
 
     <!-- Vinyl image -->
     <ImageView
@@ -33,8 +34,8 @@
             <!-- Title -->
             <TextView
                 android:id="@+id/albumTitle"
-                android:layout_width="152dp"
-                android:layout_height="44dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="66dp"
                 android:layout_marginBottom="16dp"
                 android:fontFamily="@font/roboto_condensed_light"
@@ -42,14 +43,15 @@
                 android:paddingStart="10dp"
                 android:paddingEnd="1dp"
                 android:text="@string/title_list_albums"
+                android:contentDescription="@string/title_list_albums"
                 android:textAllCaps="true"
                 android:textSize="34sp" />
 
             <!-- Albums Counter Label -->
             <TextView
                 android:id="@+id/totalAlbumsTextView"
-                android:layout_width="155dp"
-                android:layout_height="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="111dp"
                 android:layout_marginBottom="16dp"
@@ -64,8 +66,9 @@
             <!-- Search field -->
             <EditText
                 android:id="@+id/searchAlbumEditText"
-                android:layout_width="152dp"
-                android:layout_height="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
                 android:layout_below="@id/totalAlbumsTextView"
                 android:layout_marginStart="10dp"
                 android:layout_marginBottom="16dp"
@@ -73,12 +76,13 @@
                 android:background="@drawable/rounded_edit_text_background"
                 android:fontFamily="@font/roboto_condensed_light"
                 android:hint="@string/search_album_hint"
+                android:importantForAccessibility="yes"
+                android:labelFor="@id/searchAlbumEditText"
                 android:inputType="text"
                 android:paddingStart="2dp"
                 android:paddingEnd="1dp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
-                android:textSize="12sp"
                 android:drawableStart="@drawable/ic_search_small"
                 android:drawablePadding="3dp"/>
 

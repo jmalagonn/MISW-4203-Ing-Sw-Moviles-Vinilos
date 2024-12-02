@@ -35,31 +35,37 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <LinearLayout android:layout_width="150dp"
+                android:layout_height="36dp"
+                android:orientation="vertical"
+                android:layout_marginTop="30sp">
+
             <!-- Botón de Volver -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/goBack"
-                android:layout_width="130dp"
-                android:layout_height="26dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/red_button_background"
-                android:fontFamily="@font/roboto_condensed_medium"
-                android:padding="0dp"
-                android:text="@string/go_back_button"
-                android:textSize="12sp"
-                style="@style/RedButtonStyle"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/goBack"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/red_button_background"
+                    android:fontFamily="@font/roboto_condensed_medium"
+                    android:padding="0dp"
+                    android:text="@string/go_back_button"
+                    android:textSize="16sp"
+                    style="@style/RedButtonStyle"/>
+            </LinearLayout>
 
             <!-- Nombre del Artista -->
             <TextView
                 android:id="@+id/artistName"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/roboto_condensed_light"
                 android:gravity="start"
                 android:paddingStart="10dp"
-                android:paddingEnd="1dp"
+                android:paddingEnd="10dp"
                 android:textAllCaps="true"
                 android:textSize="34sp" />
 
@@ -102,6 +108,7 @@
                         android:layout_height="210dp"
                         android:scaleType="centerCrop"
                         android:src="@android:drawable/ic_menu_gallery"
+                        android:contentDescription="@string/portada_artista"
                         tools:ignore="ContentDescription" />
                 </com.google.android.material.card.MaterialCardView>
 
@@ -118,6 +125,21 @@
                     android:textAllCaps="true"
                     android:textSize="14sp"
                     android:textColor="@color/white" />
+
+                <!-- Add Album Button -->
+                <Button
+                    android:id="@+id/addAlbumButton"
+                    android:layout_width="152dp"
+                    android:layout_height="26dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:padding="0dp"
+                    android:background="@drawable/black_button_background"
+                    android:fontFamily="@font/roboto_condensed_medium"
+                    android:text="@string/button_add_album_artist"
+                    android:textSize="12sp"
+                    android:layout_gravity="start"
+                    style="?attr/buttonStyle"/>
 
                 <!-- Divider Line -->
                 <View
@@ -161,6 +183,7 @@
 
 
                 </LinearLayout>
+
                 <!-- Divider -->
                 <View
                     android:id="@+id/horizontal_line2"

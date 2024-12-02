@@ -1,6 +1,7 @@
 package co.edu.uniandes.misw4203.proyectovinilos.network
 
 import android.content.Context
+import android.util.Log
 import co.edu.uniandes.misw4203.proyectovinilos.models.Album
 import co.edu.uniandes.misw4203.proyectovinilos.models.Artist
 import co.edu.uniandes.misw4203.proyectovinilos.models.Collector
@@ -11,6 +12,7 @@ import co.edu.uniandes.misw4203.proyectovinilos.models.Track
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONArray
@@ -34,6 +36,47 @@ class NetworkServiceAdapter(context: Context) {
     private val requestQueue: RequestQueue by lazy {
         // applicationContext keeps you from leaking the Activity or BroadcastReceiver if someone passes one in.
         Volley.newRequestQueue(context.applicationContext)
+    }
+
+    fun associateAlbumToArtist(
+        albumId: Int,
+        artistId: Int,
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    ) {
+        val jsonBody = JSONObject().apply {
+            put("id", artistId)
+        }
+
+        Log.d("NetworkRequest", "Making POST request to associate album $albumId with artist $artistId")
+
+        val jsonRequest = JsonObjectRequest(
+            Request.Method.POST,
+            BASE_URL+"albums/$albumId/musicians/$artistId/",
+            null,
+            { response ->
+                Log.d("NetworkRequest", "Album associated successfully with artist: $response")
+                onSuccess()
+            },
+            { error ->
+                val errorMessage: String = when {
+                    error.networkResponse != null -> {
+                        val statusCode = error.networkResponse.statusCode
+                        val responseBody = String(error.networkResponse.data)
+                        Log.e("NetworkRequest", "Error $statusCode: $responseBody")
+                        "Error $statusCode: $responseBody"
+                    }
+                    else -> {
+                        val unknownError = "Error desconocido al asociar álbum con artista"
+                        Log.e("NetworkRequest", unknownError)
+                        unknownError
+                    }
+                }
+                onError(errorMessage)
+            }
+        )
+
+        requestQueue.add(jsonRequest)
     }
 
     //Setting coroutine
@@ -213,5 +256,87 @@ class NetworkServiceAdapter(context: Context) {
         }
         return list
     }
+
+    suspend fun createAlbum(album: Album): Result<Unit> {
+        return suspendCoroutine { continuation ->
+            val jsonBody = JSONObject().apply {
+                put("name", album.name)
+                put("cover", album.cover)
+                put("releaseDate", album.releaseDate)
+                put("description", album.description)
+                put("genre", album.genre)
+                put("recordLabel", album.recordLabel)
+            }
+
+            Log.d("NetworkRequest", "Making POST request with body: $jsonBody")
+
+            val jsonRequest = JsonObjectRequest(
+                Request.Method.POST, BASE_URL + "albums", jsonBody,
+                { response ->
+                    continuation.resume(Result.success(Unit)) // En caso de éxito
+                },
+                { error ->
+                    val errorMessage: String = when {
+                        error.networkResponse != null -> {
+                            val statusCode = error.networkResponse.statusCode
+                            val responseBody = String(error.networkResponse.data)
+
+                            Log.e("NetworkRequest", "Error $statusCode: $responseBody")
+                            "Error $statusCode: $responseBody"
+                        }
+                        else -> {
+                            val unknownError = "Error desconocido"
+                            Log.e("NetworkRequest", unknownError)
+                            unknownError
+                        }
+                    }
+                    continuation.resume(Result.failure(Exception(errorMessage)))
+                }
+            )
+
+            requestQueue.add(jsonRequest)
+        }
+    }
+
+    suspend fun addTrackToAlbum(albumId: Int, track: Track): Result<Unit> {
+        return suspendCoroutine { continuation ->
+            val jsonBody = JSONObject().apply {
+                put("name", track.name)
+                put("duration", track.duration)
+            }
+
+            Log.d("NetworkRequest", "Making POST request with body: $jsonBody")
+
+            val jsonRequest = JsonObjectRequest(
+                Request.Method.POST,
+                BASE_URL + "albums/$albumId/tracks",
+                jsonBody,
+                { response ->
+                    Log.d("NetworkRequest", "Track added successfully: $response")
+                    continuation.resume(Result.success(Unit))
+                },
+                { error ->
+                    val errorMessage = when {
+                        error.networkResponse != null -> {
+                            val statusCode = error.networkResponse.statusCode
+                            val responseBody = String(error.networkResponse.data)
+
+                            Log.e("NetworkRequest", "Error $statusCode: $responseBody")
+                            "Error $statusCode: $responseBody"
+                        }
+                        else -> {
+                            val unknownError = "Error desconocido"
+                            Log.e("NetworkRequest", unknownError)
+                            unknownError
+                        }
+                    }
+                    continuation.resume(Result.failure(Exception(errorMessage)))
+                }
+            )
+
+            requestQueue.add(jsonRequest)
+        }
+    }
+
 
 }
